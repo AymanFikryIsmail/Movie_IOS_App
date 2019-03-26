@@ -13,7 +13,7 @@
 //MovieContract
 @protocol IMovieView <IBaseView>
 
--(void) renderMoviesWithObject : (MoviePOJO*) movieList;
+-(void) renderMoviesWithObject : (NSArray*) movieList;
 
 @end
 

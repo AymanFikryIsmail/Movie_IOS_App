@@ -55,6 +55,9 @@
                         <viewLayoutGuide key="safeArea" id="Glb-Gg-2rW"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="45f-f3-pi7"/>
+                    <connections>
+                        <outlet property="favouriteCollectionView" destination="6HL-6q-nkh" id="74Y-PY-Qdc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dPB-So-BOM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -107,6 +110,9 @@
                     <tabBarItem key="tabBarItem" systemItem="more" id="YOp-Gn-erP">
                         <color key="badgeColor" name="unemphasizedSelectedTextColor" catalog="System" colorSpace="catalog"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="moviesCollectionView" destination="oBL-mb-ilN" id="UoZ-J4-SDK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9By-5h-rFY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

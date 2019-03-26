@@ -7,13 +7,15 @@
 //
 
 #import "FavouriteMovieViewController.h"
-
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "MoviePOJO.h"
 @interface FavouriteMovieViewController ()
 {
     
     NSArray* images ;
     NSArray* myData;
 }
+@property (weak, nonatomic) IBOutlet UICollectionView *favouriteCollectionView;
 @end
 
 @implementation FavouriteMovieViewController
@@ -21,19 +23,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     images = @[@"1.png",@"1.png",@"1.png"];
-    myData = @[@"One" , @"Two" , @"Three"];
+    myData = [NSMutableArray new];
+    
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        //Background Thread
+        
+        MoviePresenter *moviePresenter = [[MoviePresenter alloc] initWithMovieView:self];
+        [moviePresenter getMovies];
+    });
+    
     // Do any additional setup after loading the view.
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -44,18 +55,20 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of items
-    return 3;
+    return myData.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"favouritecell" forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"moviecell" forIndexPath:indexPath];
     
     // Configure the cell
     UIImageView *imageView = [cell viewWithTag:1];
     
-    [imageView setImage:[UIImage imageNamed:[images objectAtIndex:indexPath.row]]];
-    //    [imageView sd_setImageWithURL:[NSURL URLWithString:@"https://api.androidhive.info/json/movies/1.jpg"]
-    //                 placeholderImage:[UIImage imageNamed:@"1.png"]];
+    // [imageView setImage:[UIImage imageNamed:[images objectAtIndex:indexPath.row]]];
+    NSString *imgPath=@"https://image.tmdb.org/t/p/w185//";
+    imgPath=[imgPath stringByAppendingString:myData[indexPath.row][@"poster_path"]];
+    [imageView sd_setImageWithURL:[NSURL URLWithString: imgPath]];
+placeholderImage:[UIImage imageNamed:@"1.png"];
     //printf("%s   %i \n " ,myData[indexPath.row] ,indexPath.row);
     return cell;
 }
@@ -81,8 +94,10 @@
     [alert show];
 }
 
-- (void)renderMoviesWithObject:(nonnull MoviePOJO *)movieList {
-    
+- (void)renderMoviesWithObject:(nonnull NSArray *)movieList {
+    printf("hide Loading\n");
+    myData=movieList;
+    [self.favouriteCollectionView reloadData];
 }
 
 @end

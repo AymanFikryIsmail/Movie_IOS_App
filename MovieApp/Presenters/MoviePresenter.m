@@ -7,7 +7,7 @@
 //
 
 #import "MoviePresenter.h"
-
+//#import "Reachability.h"
 @implementation MoviePresenter
 
 -(instancetype) initWithMovieView : (id<IMovieView>) movieView{
@@ -24,13 +24,23 @@
 - (void)getMovies {
     [_movieView showLoading];
     
+    //
     Moviesservice *movieService = [Moviesservice new];
       [movieService getMovies:self];
+    
+    
 }
 
-- (void)onSuccess:(MoviePOJO *)movie {
+- (void)onSuccess:(NSArray *)movies {
     
-    [_movieView renderMoviesWithObject:movie];
+    NSUserDefaults *def=[NSUserDefaults standardUserDefaults];
+    BOOL isFirst= [def boolForKey:@"isLunch"];
+    if (!isFirst) {
+         [[DBManager getInstance] saveData:movies ] ;
+        [def setBool:true  forKey:@"isLunch"];
+    }
+
+    [_movieView renderMoviesWithObject:movies];
     [_movieView hideLoading];
     
 }
@@ -43,3 +53,4 @@
 }
 
 @end
+

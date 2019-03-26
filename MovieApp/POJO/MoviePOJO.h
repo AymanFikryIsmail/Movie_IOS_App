@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *overview;
 @property NSString *vote_average;
 @property NSString *release_date;
-
+@property NSString *isFavourite;
+-(instancetype) initWithMovie: (NSString*) id : (NSString*) title : (NSString*) poster_path :(NSString*) overview  :(NSString*) vote_average :(NSString*) release_date  :(NSString*) isFavourite ;
 
 @end
 

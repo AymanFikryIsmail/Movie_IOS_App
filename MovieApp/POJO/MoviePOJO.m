@@ -10,4 +10,19 @@
 
 @implementation MoviePOJO
 
+-(instancetype) initWithMovie: (NSString*) id : (NSString*) title : (NSString*) poster_path :(NSString*) overview  :(NSString*) vote_average :(NSString*) release_date  :(NSString*) isFavourite  {
+    self=[super init];
+    
+    if (self) {
+        id=id;
+        _title=title;
+        _poster_path=poster_path;
+        _overview=overview;
+        _vote_average=vote_average;
+        _release_date=release_date;
+        _isFavourite=isFavourite;
+    }
+    
+    return self;
+}
 @end
