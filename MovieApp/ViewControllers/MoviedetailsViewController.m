@@ -7,8 +7,15 @@
 //
 
 #import "MoviedetailsViewController.h"
-
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "MoviePOJO.h"
 @interface MoviedetailsViewController ()
+{
+    MoviePOJO* movieDetails;
+    
+}
+@property (weak, nonatomic) IBOutlet UILabel *movieTilte;
+@property (weak, nonatomic) IBOutlet UIImageView *movieImage;
 
 @end
 
@@ -18,7 +25,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    
+   // movieDetails = [movieDetails new];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        //Background Thread
+        
+        MoviedetailsPresenter *movieDetailsPresenter = [[MoviedetailsPresenter alloc] initWithMovieVDetailsiew:self];
+        [movieDetailsPresenter getMovieDetail:self->movieDetails];
+    });
+}
+-(void) setMovieDetail :(MoviePOJO* )movieDetail{
+    movieDetails=movieDetail;
+ }
 /*
 #pragma mark - Navigation
 
@@ -28,5 +47,33 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)hideLoading {
+    
+}
+
+- (void)showErrorMessage:(nonnull NSString *)errorMessage {
+    
+}
+
+- (void)showLoading {
+    
+}
+
+- (void)renderMovieDetailsWithObject {
+    _movieTilte.text=movieDetails.title;
+    NSString *imgPath=@"https://image.tmdb.org/t/p/w185//";
+    NSString *imgData=movieDetails.poster_path;// poster_path  for network
+    
+    if (imgData == (id)[NSNull null] || imgData.length == 0 ) {
+        imgData = @"";
+    }
+    
+    imgPath=[imgPath stringByAppendingString: imgData   ];
+    [_movieImage sd_setImageWithURL:[NSURL URLWithString: imgPath]];
+placeholderImage:[UIImage imageNamed:@"1.png"];
+    
+}
+
 
 @end

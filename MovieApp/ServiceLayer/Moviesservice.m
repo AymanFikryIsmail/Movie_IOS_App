@@ -19,7 +19,7 @@
         NSDictionary *dict = (NSDictionary*)jsonData;
         NSArray *moviesArray = [dict objectForKey:@"results"];
        // NSDictionary *moviesDict = moviesArray[0];
-        MoviePOJO *movie = [MoviePOJO new];
+       // MoviePOJO *movie = [MoviePOJO new];
 //        [contact setName:[contactDict objectForKey:@"name"]];
 //        [contact setEmail:[contactDict objectForKey:@"email"]];
         [_moviePresenter onSuccess:moviesArray];

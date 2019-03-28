@@ -64,8 +64,8 @@ static sqlite3_stmt    *statement;
         for (int i=0; i<[movieList count]; i++) {
             NSString *insertSQL = [NSString stringWithFormat:
                                    @"INSERT INTO movies (movieId, title, poster_path,  overview, vote_average, release_date ,isFavourite ) VALUES (\"%@\", \"%@\", \"%@\" , \"%@\"  , \"%@\" , \"%@\" , \"%@\")",
-                                   movieList[i][@"id"],  movieList[i][@"id"],  movieList[i][@"id"] ,
-                                   movieList[i][@"id"] ,  movieList[i][@"id"],  movieList[i][@"id"] , @"false"];
+                                   movieList[i][@"id"],  movieList[i][@"title"],  movieList[i][@"poster_path"] ,
+                                   movieList[i][@"overview"] ,  movieList[i][@"vote_average"],  movieList[i][@"release_date"] , @"false"];
                                    const char *insert_stmt = [insertSQL UTF8String];
                                    sqlite3_prepare_v2(movieDB, insert_stmt,
                                                       -1, &statement, NULL);

@@ -24,6 +24,8 @@
 		84101699224827D0003EF420 /* MoviedetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84101698224827D0003EF420 /* MoviedetailsViewController.m */; };
 		8410169C22482B70003EF420 /* MoviePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8410169B22482B70003EF420 /* MoviePresenter.m */; };
 		8410169E2248305F003EF420 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8410169D2248305F003EF420 /* 1.png */; };
+		84169ED3224B661F008AE9EF /* FavouriteMoviePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84169ED2224B661F008AE9EF /* FavouriteMoviePresenter.m */; };
+		841C9851224D4D6B001D826B /* MoviedetailsPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 841C9850224D4D6A001D826B /* MoviedetailsPresenter.m */; };
 		844DC2252247F79A00FE1C40 /* MoviePOJO.m in Sources */ = {isa = PBXBuildFile; fileRef = 844DC2242247F79A00FE1C40 /* MoviePOJO.m */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +83,11 @@
 		8410169A22482B70003EF420 /* MoviePresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviePresenter.h; sourceTree = "<group>"; };
 		8410169B22482B70003EF420 /* MoviePresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviePresenter.m; sourceTree = "<group>"; };
 		8410169D2248305F003EF420 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = ../../../1.png; sourceTree = "<group>"; };
+		84169ED1224B661F008AE9EF /* FavouriteMoviePresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavouriteMoviePresenter.h; sourceTree = "<group>"; };
+		84169ED2224B661F008AE9EF /* FavouriteMoviePresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavouriteMoviePresenter.m; sourceTree = "<group>"; };
+		841C984F224D4D6A001D826B /* MoviedetailsPresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviedetailsPresenter.h; sourceTree = "<group>"; };
+		841C9850224D4D6A001D826B /* MoviedetailsPresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviedetailsPresenter.m; sourceTree = "<group>"; };
+		841C9853224D4DEB001D826B /* MovieDetailsContract.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDetailsContract.h; sourceTree = "<group>"; };
 		844DC2232247F79A00FE1C40 /* MoviePOJO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviePOJO.h; sourceTree = "<group>"; };
 		844DC2242247F79A00FE1C40 /* MoviePOJO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviePOJO.m; sourceTree = "<group>"; };
 		E5D270114864B74B6585DCEF /* Pods-MovieApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieApp.debug.xcconfig"; path = "Target Support Files/Pods-MovieApp/Pods-MovieApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -199,6 +206,14 @@
 			path = "Movie Contract";
 			sourceTree = "<group>";
 		};
+		841C9852224D4DBC001D826B /* Moviedetail Contract */ = {
+			isa = PBXGroup;
+			children = (
+				841C9853224D4DEB001D826B /* MovieDetailsContract.h */,
+			);
+			path = "Moviedetail Contract";
+			sourceTree = "<group>";
+		};
 		844DC2222247F19000FE1C40 /* POJO */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +270,10 @@
 			children = (
 				8410169A22482B70003EF420 /* MoviePresenter.h */,
 				8410169B22482B70003EF420 /* MoviePresenter.m */,
+				84169ED1224B661F008AE9EF /* FavouriteMoviePresenter.h */,
+				84169ED2224B661F008AE9EF /* FavouriteMoviePresenter.m */,
+				841C984F224D4D6A001D826B /* MoviedetailsPresenter.h */,
+				841C9850224D4D6A001D826B /* MoviedetailsPresenter.m */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -262,6 +281,7 @@
 		844DC22B2247FA9700FE1C40 /* MVP Contract */ = {
 			isa = PBXGroup;
 			children = (
+				841C9852224D4DBC001D826B /* Moviedetail Contract */,
 				8410168322482130003EF420 /* Movie Contract */,
 				84101682224820A4003EF420 /* BaseContract */,
 			);
@@ -443,6 +463,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841C9851224D4D6B001D826B /* MoviedetailsPresenter.m in Sources */,
 				8409E1722247EF8700ACE930 /* main.m in Sources */,
 				844DC2252247F79A00FE1C40 /* MoviePOJO.m in Sources */,
 				8410169C22482B70003EF420 /* MoviePresenter.m in Sources */,
@@ -450,6 +471,7 @@
 				8409E1642247EF8100ACE930 /* AppDelegate.m in Sources */,
 				84101696224827BD003EF420 /* FavouriteMovieViewController.m in Sources */,
 				84101693224827A4003EF420 /* MovieListViewController.m in Sources */,
+				84169ED3224B661F008AE9EF /* FavouriteMoviePresenter.m in Sources */,
 				8409845B2248DAB10003B155 /* NetworkManager.m in Sources */,
 				8409845E2248DBBD0003B155 /* Moviesservice.m in Sources */,
 				84077B202248C43600970D72 /* DBManager.m in Sources */,

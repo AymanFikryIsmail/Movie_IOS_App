@@ -72,25 +72,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oBL-mb-ilN">
-                                <rect key="frame" x="16" y="64" width="343" height="554"/>
+                                <rect key="frame" x="-8" y="64" width="393" height="554"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.093940265476703644" green="0.081878222525119781" blue="0.41084018349647522" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Tqj-7W-4ps">
-                                    <size key="itemSize" width="144" height="112"/>
+                                    <size key="itemSize" width="190" height="145"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="moviecell" id="CFJ-T9-907">
-                                        <rect key="frame" x="0.0" y="0.0" width="144" height="112"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="190" height="145"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="144" height="112"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="190" height="145"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="1.png" translatesAutoresizingMaskIntoConstraints="NO" id="Sev-AQ-tUV">
-                                                    <rect key="frame" x="-5" y="0.0" width="142" height="106"/>
+                                                <imageView alpha="0.84999999999999998" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="1.png" translatesAutoresizingMaskIntoConstraints="NO" id="Sev-AQ-tUV">
+                                                    <rect key="frame" x="-5" y="0.0" width="194" height="145"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" name="unemphasizedSelectedTextColor" catalog="System" colorSpace="catalog"/>
                                                 </imageView>
@@ -118,11 +118,11 @@
             </objects>
             <point key="canvasLocation" x="-39.200000000000003" y="-671.51424287856082"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Home-->
         <scene sceneID="yNC-L3-QZY">
             <objects>
                 <tabBarController id="BNc-9b-eKq" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="Uit-RQ-jjS"/>
+                    <navigationItem key="navigationItem" title="Home" prompt=" " id="Uit-RQ-jjS"/>
                     <tabBar key="tabBar" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="7hP-iz-ged">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -143,19 +143,32 @@
         <!--Moviedetails View Controller-->
         <scene sceneID="IxN-uL-2xd">
             <objects>
-                <viewController id="vjS-uG-F8P" customClass="MoviedetailsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="moviedetail" id="vjS-uG-F8P" customClass="MoviedetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bXq-zC-RtR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YXl-xW-74r">
-                                <rect key="frame" x="16" y="50" width="161" height="197"/>
+                                <rect key="frame" x="24" y="158" width="161" height="197"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OC1-rj-Ppy">
+                                <rect key="frame" x="24" y="38" width="335" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="highlightedColor" red="1" green="0.24780780820000001" blue="0.13261682120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="shadowColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="8sM-9P-qt2"/>
                     </view>
+                    <connections>
+                        <outlet property="movieImage" destination="YXl-xW-74r" id="VLr-h5-gRZ"/>
+                        <outlet property="movieTilte" destination="OC1-rj-Ppy" id="2tV-JQ-ezQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ylS-NE-Qrb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

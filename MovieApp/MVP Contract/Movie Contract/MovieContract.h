@@ -20,7 +20,7 @@
 @protocol IMoviePresenter <NSObject>
 
 -(void) getMovies;
--(void) onSuccess : (MoviePOJO*) movie;
+-(void) onSuccess : (NSArray*) movie;
 -(void) onFail : (NSString*) errorMessage;
 
 @end

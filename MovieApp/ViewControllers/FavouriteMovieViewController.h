@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MovieContract.h"
-#import "MoviePresenter.h"
+#import "FavouriteMoviePresenter.h"
 @interface FavouriteMovieViewController : UIViewController <IMovieView , UICollectionViewDelegate , UICollectionViewDataSource>
 
 @end

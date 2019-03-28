@@ -7,6 +7,8 @@
 //
 
 #import "MoviePresenter.h"
+
+#import <AFNetworkReachabilityManager.h>
 //#import "Reachability.h"
 @implementation MoviePresenter
 
@@ -23,12 +25,25 @@
 }
 - (void)getMovies {
     [_movieView showLoading];
-    
-    //
-    Moviesservice *movieService = [Moviesservice new];
-      [movieService getMovies:self];
-    
-    
+   // [AFNetworkReachabilityStatusNotReachabl ]
+//    if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable)
+//    {
+//        Moviesservice *movieService = [Moviesservice new];
+//        [movieService getMovies:self];
+//    } else{
+//        NSArray *moviesArray=[[DBManager getInstance] getAllData] ;
+//        [self onSuccess:moviesArray];
+//    }
+    NSURL* url = [[NSURL alloc] initWithString:@"http://google.com/"];
+    NSData* data = [NSData dataWithContentsOfURL:url];
+    if (data != nil){
+        Moviesservice *movieService = [Moviesservice new];
+    [movieService getMovies:self];
+     } else{
+    NSArray *moviesArray=[[DBManager getInstance] getAllData] ;
+     [self onSuccess:moviesArray];
+       }
+
 }
 
 - (void)onSuccess:(NSArray *)movies {

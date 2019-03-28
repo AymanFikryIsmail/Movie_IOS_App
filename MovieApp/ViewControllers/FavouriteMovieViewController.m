@@ -12,7 +12,7 @@
 @interface FavouriteMovieViewController ()
 {
     
-    NSArray* images ;
+  
     NSArray* myData;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *favouriteCollectionView;
@@ -22,19 +22,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    images = @[@"1.png",@"1.png",@"1.png"];
-    myData = [NSMutableArray new];
-    
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        //Background Thread
-        
-        MoviePresenter *moviePresenter = [[MoviePresenter alloc] initWithMovieView:self];
-        [moviePresenter getMovies];
-    });
+   
     
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+  
+    myData = [NSMutableArray new];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        FavouriteMoviePresenter *moviePresenter = [[FavouriteMoviePresenter alloc] initWithMovieView:self];
+        [moviePresenter getMovies];
+    });
+}
 /*
  #pragma mark - Navigation
  

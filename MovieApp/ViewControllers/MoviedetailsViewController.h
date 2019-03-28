@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MovieDetailsContract.h"
+#import "MoviedetailsPresenter.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@interface MoviedetailsViewController : UIViewController<IMovieDetailsView>
 
-@interface MoviedetailsViewController : UIViewController
 
+-(void) setMovieDetail :(MoviePOJO* )movieDetail;
 @end
-
-NS_ASSUME_NONNULL_END

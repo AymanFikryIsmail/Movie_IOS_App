@@ -9,6 +9,8 @@
 #import "MovieListViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MoviePOJO.h"
+
+#import "MoviedetailsViewController.h"
 @interface MovieListViewController ()
 {
     NSMutableArray* myData;
@@ -20,6 +22,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
+    
+    // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated{
     
     myData = [NSMutableArray new];
     
@@ -29,10 +36,7 @@
         MoviePresenter *moviePresenter = [[MoviePresenter alloc] initWithMovieView:self];
         [moviePresenter getMovies];
     });
-    
-    // Do any additional setup after loading the view.
 }
-
 /*
 #pragma mark - Navigation
 
@@ -61,15 +65,33 @@
     
     // Configure the cell
     UIImageView *imageView = [cell viewWithTag:1];
-
-   // [imageView setImage:[UIImage imageNamed:[images objectAtIndex:indexPath.row]]];
+ 
+  
     NSString *imgPath=@"https://image.tmdb.org/t/p/w185//";
-    imgPath=[imgPath stringByAppendingString:myData[indexPath.row][@"poster_path"]];
+    NSString *imgData=myData[indexPath.row][@"poster_path"];// poster_path  for network
+   
+    if (imgData == (id)[NSNull null] || imgData.length == 0 ) {
+        imgData = @"";
+    }
+
+    imgPath=[imgPath stringByAppendingString: imgData   ];
     [imageView sd_setImageWithURL:[NSURL URLWithString: imgPath]];
-                 placeholderImage:[UIImage imageNamed:@"1.png"];
-    //printf("%s   %i \n " ,myData[indexPath.row] ,indexPath.row);
+     placeholderImage:[UIImage imageNamed:@"1.png"];
+  
     return cell;
 }
+
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+  
+    MoviedetailsViewController *detail=[self.storyboard instantiateViewControllerWithIdentifier:@"moviedetail"];
+   [detail setMovieDetail:myData[indexPath.row]];
+    [self.navigationController pushViewController:detail animated:YES];
+    
+    
+    
+}
+
 
 #pragma mark <UICollectionViewDelegate>
 
@@ -93,7 +115,7 @@
 }
 
 - (void)renderMoviesWithObject:(nonnull NSArray *)movieList {
-    printf("hide Loading\n");
+    
     myData=movieList;
     [self.moviesCollectionView reloadData];
     

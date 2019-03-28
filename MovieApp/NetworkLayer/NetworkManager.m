@@ -21,14 +21,7 @@ static NSString* classServiceName;
     
     classServiceName = serviceName;
     networkObserverDelegate = serviceProtocol;
-    //    NSURL *fullURL = [NSURL URLWithString:url];
-    //    NSURLRequest *request = [NSURLRequest requestWithURL:fullURL];
-    //    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    //
-    //
-    //    [connection start];
-    //
-    
+  
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
