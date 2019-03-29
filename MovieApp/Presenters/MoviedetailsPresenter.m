@@ -43,6 +43,8 @@
 
 
 - (void)saveFavouriteMovies:(MoviePOJO *)movie {
+    
+    
     [[DBManager getInstance]updateData:movie];
 }
 

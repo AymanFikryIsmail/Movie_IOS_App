@@ -16,6 +16,9 @@
 }
 @property (weak, nonatomic) IBOutlet UILabel *movieTilte;
 @property (weak, nonatomic) IBOutlet UIImageView *movieImage;
+@property (weak, nonatomic) IBOutlet UITextView *movieOverview;
+@property (weak, nonatomic) IBOutlet UILabel *movieDate;
+@property (weak, nonatomic) IBOutlet UIImageView *movieFavImage;
 
 @end
 
@@ -36,7 +39,11 @@
     });
 }
 -(void) setMovieDetail :(MoviePOJO* )movieDetail{
+   // movieDetails=[MoviePOJO new];
     movieDetails=movieDetail;
+    printf(" %s name \n",[ movieDetails.poster_path UTF8String]);
+    
+   ;
  }
 /*
 #pragma mark - Navigation
@@ -62,6 +69,14 @@
 
 - (void)renderMovieDetailsWithObject {
     _movieTilte.text=movieDetails.title;
+    _movieOverview.text=movieDetails.overview;
+    _movieDate.text=movieDetails.release_date;
+    if([movieDetails.isFavourite isEqualToString:@"true"]){
+        _movieFavImage.image=[UIImage imageNamed:@"fav2.png"];
+    }
+    else{
+        _movieFavImage.image=[UIImage imageNamed:@"fav.png"];
+    }
     NSString *imgPath=@"https://image.tmdb.org/t/p/w185//";
     NSString *imgData=movieDetails.poster_path;// poster_path  for network
     
@@ -71,9 +86,22 @@
     
     imgPath=[imgPath stringByAppendingString: imgData   ];
     [_movieImage sd_setImageWithURL:[NSURL URLWithString: imgPath]];
-placeholderImage:[UIImage imageNamed:@"1.png"];
+placeholderImage:[UIImage imageNamed:@"defaultPoster.jpg"];
     
 }
 
+
+-(void)selectFavMethod{
+    if([movieDetails.isFavourite isEqualToString:@"false"]){
+        _movieFavImage.image=[UIImage imageNamed:@"fav2.png"];
+        movieDetails.isFavourite=@"true";
+       [[DBManager getInstance] updateData:movieDetails];
+    }
+    else{
+        _movieFavImage.image=[UIImage imageNamed:@"fav.png"];
+        movieDetails.isFavourite=@"false";
+        [[DBManager getInstance] updateData:movieDetails];
+    }
+}
 
 @end

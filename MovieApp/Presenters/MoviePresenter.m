@@ -25,15 +25,9 @@
 }
 - (void)getMovies {
     [_movieView showLoading];
-   // [AFNetworkReachabilityStatusNotReachabl ]
+    
 //    if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable)
-//    {
-//        Moviesservice *movieService = [Moviesservice new];
-//        [movieService getMovies:self];
-//    } else{
-//        NSArray *moviesArray=[[DBManager getInstance] getAllData] ;
-//        [self onSuccess:moviesArray];
-//    }
+
     NSURL* url = [[NSURL alloc] initWithString:@"http://google.com/"];
     NSData* data = [NSData dataWithContentsOfURL:url];
     if (data != nil){

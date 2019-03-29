@@ -14,8 +14,11 @@
 @interface MovieListViewController ()
 {
     NSMutableArray* myData;
+    UIAlertView *progreesAlert;
+    UIActivityIndicatorView *indicator;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *moviesCollectionView;
+
 @end
 
 @implementation MovieListViewController
@@ -23,7 +26,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
+    progreesAlert = [[UIAlertView alloc] initWithTitle:@"\n\nLoading data\nPlease Wait..." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
     
+    indicator= [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
+    [progreesAlert show];
+    
+    indicator.center = CGPointMake(progreesAlert.bounds.size.width / 2, progreesAlert.bounds.size.height - 50);
+    
+    [indicator startAnimating];
+    [progreesAlert addSubview:indicator];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -62,13 +74,11 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"moviecell" forIndexPath:indexPath];
-    
     // Configure the cell
     UIImageView *imageView = [cell viewWithTag:1];
- 
-  
     NSString *imgPath=@"https://image.tmdb.org/t/p/w185//";
-    NSString *imgData=myData[indexPath.row][@"poster_path"];// poster_path  for network
+     MoviePOJO *movieDetails2=myData[indexPath.row];
+    NSString *imgData=movieDetails2.poster_path;//myData[indexPath.row][@"poster_path"];// poster_path  for network
    
     if (imgData == (id)[NSNull null] || imgData.length == 0 ) {
         imgData = @"";
@@ -76,7 +86,7 @@
 
     imgPath=[imgPath stringByAppendingString: imgData   ];
     [imageView sd_setImageWithURL:[NSURL URLWithString: imgPath]];
-     placeholderImage:[UIImage imageNamed:@"1.png"];
+     placeholderImage:[UIImage imageNamed:@"defaultPoster.jpg"];
   
     return cell;
 }
@@ -85,7 +95,12 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
   
     MoviedetailsViewController *detail=[self.storyboard instantiateViewControllerWithIdentifier:@"moviedetail"];
-   [detail setMovieDetail:myData[indexPath.row]];
+   MoviePOJO *movieDetails2=myData[indexPath.row];
+    MoviePOJO *movieDetails=movieDetails2;
+    movieDetails.isFavourite=@"false";
+//    [[MoviePOJO alloc] initWithMovie:movieDetails2.id :movieDetails2.title:movieDetails2.poster_path :movieDetails2.overview :movieDetails2.vote_average:movieDetails2.release_date:@"false"];
+   
+   [detail setMovieDetail:movieDetails];
     [self.navigationController pushViewController:detail animated:YES];
     
     
@@ -105,6 +120,7 @@
 -(void) hideLoading{
     
     printf("hide Loading\n");
+        [progreesAlert dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 -(void)showErrorMessage:(NSString *)errorMessage{
@@ -117,6 +133,8 @@
 - (void)renderMoviesWithObject:(nonnull NSArray *)movieList {
     
     myData=movieList;
+   
+    
     [self.moviesCollectionView reloadData];
     
 }
