@@ -36,7 +36,7 @@
         [def setBool:true  forKey:@"isLunch"];
     }
     
-    [_movieView renderMoviesWithObject:movies];
+    [_movieView renderMoviesWithObject:movies:false];
     [_movieView hideLoading];
     
 }

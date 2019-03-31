@@ -35,12 +35,12 @@
     [movieService getMovies:self];
      } else{
     NSArray *moviesArray=[[DBManager getInstance] getAllData] ;
-     [self onSuccess:moviesArray];
+         [self onSuccess:moviesArray : false];
        }
 
 }
 
-- (void)onSuccess:(NSArray *)movies {
+- (void)onSuccess:(NSArray *)movies : (Boolean) isFromNetwrok {
     
     NSUserDefaults *def=[NSUserDefaults standardUserDefaults];
     BOOL isFirst= [def boolForKey:@"isLunch"];
@@ -49,7 +49,7 @@
         [def setBool:true  forKey:@"isLunch"];
     }
 
-    [_movieView renderMoviesWithObject:movies];
+    [_movieView renderMoviesWithObject:movies :isFromNetwrok];
     [_movieView hideLoading];
     
 }

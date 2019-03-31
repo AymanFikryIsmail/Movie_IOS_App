@@ -13,14 +13,14 @@
 //MovieContract
 @protocol IMovieView <IBaseView>
 
--(void) renderMoviesWithObject : (NSArray*) movieList;
+-(void) renderMoviesWithObject : (NSArray<MoviePOJO *> *)movieList: (Boolean) isFromNetwrok;
 
 @end
 
 @protocol IMoviePresenter <NSObject>
 
 -(void) getMovies;
--(void) onSuccess : (NSArray*) movie;
+-(void) onSuccess : (NSArray*) movie :(Boolean) isFromNetwrok ;
 -(void) onFail : (NSString*) errorMessage;
 
 @end

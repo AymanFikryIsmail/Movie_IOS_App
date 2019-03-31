@@ -11,14 +11,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MoviePOJO : NSObject
-@property NSString *id;
+@property NSString *mid;
 @property NSString *title;
 @property NSString *poster_path;
 @property NSString *overview;
 @property NSString *vote_average;
 @property NSString *release_date;
 @property NSString *isFavourite;
--(instancetype) initWithMovie: (NSString*) id : (NSString*) title : (NSString*) poster_path :(NSString*) overview  :(NSString*) vote_average :(NSString*) release_date  :(NSString*) isFavourite ;
+-(instancetype) initWithMovie: (NSString*) mid : (NSString*) title : (NSString*) poster_path :(NSString*) overview  :(NSString*) vote_average :(NSString*) release_date  :(NSString*) isFavourite ;
 
 @end
 

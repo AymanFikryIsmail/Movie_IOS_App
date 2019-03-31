@@ -17,8 +17,8 @@
 - (void)handleSuccessWithJSONData:(id)jsonData :(NSString *)serviceName {
     if ([serviceName isEqualToString:@"Moviesservice"]) {
         NSDictionary *dict = (NSDictionary*)jsonData;
-        NSArray *moviesArray = [dict objectForKey:@"results"];
-        [_moviePresenter onSuccess:moviesArray];
+        NSArray<MoviePOJO *>  *moviesArray = (NSArray<MoviePOJO *>*)[dict objectForKey:@"results"];
+        [_moviePresenter onSuccess:moviesArray : true];
         
     }
     

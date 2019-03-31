@@ -13,9 +13,10 @@
 #import "MoviedetailsViewController.h"
 @interface MovieListViewController ()
 {
-    NSMutableArray* myData;
+    NSMutableArray  *myData;
     UIAlertView *progreesAlert;
     UIActivityIndicatorView *indicator;
+     Boolean isDataFromNetwrok ;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *moviesCollectionView;
 
@@ -77,8 +78,15 @@
     // Configure the cell
     UIImageView *imageView = [cell viewWithTag:1];
     NSString *imgPath=@"https://image.tmdb.org/t/p/w185//";
-     MoviePOJO *movieDetails2=myData[indexPath.row];
-    NSString *imgData=movieDetails2.poster_path;//myData[indexPath.row][@"poster_path"];// poster_path  for network
+     MoviePOJO *movieDetails2= myData[indexPath.row];
+    NSString *imgData=@"";//myData[indexPath.row][@"poster_path"];// poster_path  for network
+    
+    if (isDataFromNetwrok) {
+        imgData=myData[indexPath.row][@"poster_path"];//myData[indexPath.row][@"poster_path"];// poster_path  for network
+    }else{
+         imgData=movieDetails2.poster_path;//myData[indexPath.row][@"poster_path"];// poster_path  for network
+        
+    }
    
     if (imgData == (id)[NSNull null] || imgData.length == 0 ) {
         imgData = @"";
@@ -96,10 +104,17 @@
   
     MoviedetailsViewController *detail=[self.storyboard instantiateViewControllerWithIdentifier:@"moviedetail"];
    MoviePOJO *movieDetails2=myData[indexPath.row];
-    MoviePOJO *movieDetails=movieDetails2;
-    movieDetails.isFavourite=@"false";
-//    [[MoviePOJO alloc] initWithMovie:movieDetails2.id :movieDetails2.title:movieDetails2.poster_path :movieDetails2.overview :movieDetails2.vote_average:movieDetails2.release_date:@"false"];
-   
+    MoviePOJO *movieDetails;
+    if (isDataFromNetwrok) {
+        NSString *mid=[myData[indexPath.row][@"id"] stringValue];
+              movieDetails=[[MoviePOJO alloc] initWithMovie:mid :myData[indexPath.row][@"title"]:myData[indexPath.row][@"poster_path"] :myData[indexPath.row][@"overview"] :myData[indexPath.row][@"vote_average"]:myData[indexPath.row][@"release_date"]:@"false"];
+        
+    }else{
+         movieDetails=movieDetails2;
+        movieDetails.isFavourite=@"false";
+    }
+
+
    [detail setMovieDetail:movieDetails];
     [self.navigationController pushViewController:detail animated:YES];
     
@@ -130,10 +145,10 @@
     [alert show];
 }
 
-- (void)renderMoviesWithObject:(nonnull NSArray *)movieList {
+- (void)renderMoviesWithObject:(NSArray<MoviePOJO *> *)movieList : (Boolean) isFromNetwrok {
     
     myData=movieList;
-   
+    isDataFromNetwrok=isFromNetwrok;
     
     [self.moviesCollectionView reloadData];
     

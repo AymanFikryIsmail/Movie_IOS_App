@@ -94,7 +94,7 @@ placeholderImage:[UIImage imageNamed:@"1.png"];
     [alert show];
 }
 
-- (void)renderMoviesWithObject:(nonnull NSArray *)movieList {
+- (void)renderMoviesWithObject:(nonnull NSArray *)movieList : (Boolean) isFromNetwrok {
     printf("hide Loading\n");
     myData=movieList;
     [self.favouriteCollectionView reloadData];

@@ -89,19 +89,18 @@
 placeholderImage:[UIImage imageNamed:@"defaultPoster.jpg"];
     
 }
-
-
--(void)selectFavMethod{
+- (IBAction)tabFavImage:(id)sender {
     if([movieDetails.isFavourite isEqualToString:@"false"]){
         _movieFavImage.image=[UIImage imageNamed:@"fav2.png"];
         movieDetails.isFavourite=@"true";
-       [[DBManager getInstance] updateData:movieDetails];
+        [[DBManager getInstance] updateFavData:movieDetails];
     }
     else{
         _movieFavImage.image=[UIImage imageNamed:@"fav.png"];
         movieDetails.isFavourite=@"false";
-        [[DBManager getInstance] updateData:movieDetails];
+        [[DBManager getInstance] updateFavData:movieDetails];
     }
 }
+
 
 @end

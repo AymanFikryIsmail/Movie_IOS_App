@@ -89,7 +89,7 @@ static sqlite3_stmt    *statement;
     const char *dbpath = [databasePath UTF8String];
     if (sqlite3_open(dbpath, &movieDB) == SQLITE_OK)
     {
-        NSString *updateSQL = [NSString stringWithFormat:@"update  movies  set  isFavourite =\"%@\"  where movieId = \"%@\" ",movie.isFavourite , movie.id];
+        NSString *updateSQL = [NSString stringWithFormat:@"update  movies  set  isFavourite =\"%@\"  where movieId = \"%@\" ",movie.isFavourite , movie.mid];
 
         const char *insert_stmt = [updateSQL UTF8String];
         sqlite3_prepare_v2(movieDB, insert_stmt, -1, &statement, NULL);
