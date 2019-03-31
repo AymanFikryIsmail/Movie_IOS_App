@@ -37,6 +37,7 @@
     
     [indicator startAnimating];
     [progreesAlert addSubview:indicator];
+    
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -49,6 +50,7 @@
         MoviePresenter *moviePresenter = [[MoviePresenter alloc] initWithMovieView:self];
         [moviePresenter getMovies];
     });
+     [self.moviesCollectionView reloadData];
 }
 /*
 #pragma mark - Navigation
@@ -81,20 +83,20 @@
      MoviePOJO *movieDetails2= myData[indexPath.row];
     NSString *imgData=@"";//myData[indexPath.row][@"poster_path"];// poster_path  for network
     
-    if (isDataFromNetwrok) {
-        imgData=myData[indexPath.row][@"poster_path"];//myData[indexPath.row][@"poster_path"];// poster_path  for network
-    }else{
+//    if (isDataFromNetwrok) {
+//        imgData=myData[indexPath.row][@"poster_path"];//myData[indexPath.row][@"poster_path"];// poster_path  for network
+//    }else{
          imgData=movieDetails2.poster_path;//myData[indexPath.row][@"poster_path"];// poster_path  for network
-        
-    }
+  //  }
    
     if (imgData == (id)[NSNull null] || imgData.length == 0 ) {
         imgData = @"";
     }
 
     imgPath=[imgPath stringByAppendingString: imgData   ];
-    [imageView sd_setImageWithURL:[NSURL URLWithString: imgPath]];
-     placeholderImage:[UIImage imageNamed:@"defaultPoster.jpg"];
+     
+     [imageView sd_setImageWithURL:[NSURL URLWithString:imgPath]
+                  placeholderImage:[UIImage imageNamed:@"defaultPoster.jpg"]];
   
     return cell;
 }
@@ -105,14 +107,14 @@
     MoviedetailsViewController *detail=[self.storyboard instantiateViewControllerWithIdentifier:@"moviedetail"];
    MoviePOJO *movieDetails2=myData[indexPath.row];
     MoviePOJO *movieDetails;
-    if (isDataFromNetwrok) {
-        NSString *mid=[myData[indexPath.row][@"id"] stringValue];
-              movieDetails=[[MoviePOJO alloc] initWithMovie:mid :myData[indexPath.row][@"title"]:myData[indexPath.row][@"poster_path"] :myData[indexPath.row][@"overview"] :myData[indexPath.row][@"vote_average"]:myData[indexPath.row][@"release_date"]:@"false"];
-        
-    }else{
+//    if (isDataFromNetwrok) {
+//        NSString *mid=[myData[indexPath.row][@"id"] stringValue];
+//              movieDetails=[[MoviePOJO alloc] initWithMovie:mid :myData[indexPath.row][@"title"]:myData[indexPath.row][@"poster_path"] :myData[indexPath.row][@"overview"] :myData[indexPath.row][@"vote_average"]:myData[indexPath.row][@"release_date"]:@"false"];
+//
+//    }else{
          movieDetails=movieDetails2;
-        movieDetails.isFavourite=@"false";
-    }
+       // movieDetails.isFavourite=@"false";
+//    }
 
 
    [detail setMovieDetail:movieDetails];

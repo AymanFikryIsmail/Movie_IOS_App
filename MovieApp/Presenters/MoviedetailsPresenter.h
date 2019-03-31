@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MovieDetailsContract.h"
 #import "DBManager.h"
+#import "MoviesService.h"
 
 @interface MoviedetailsPresenter :  NSObject <IMovieDetailsPresenter>
 

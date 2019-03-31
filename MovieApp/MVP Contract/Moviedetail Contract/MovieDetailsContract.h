@@ -13,6 +13,7 @@
 @protocol IMovieDetailsView <IBaseView>
 
 -(void) renderMovieDetailsWithObject ;
+- (void)renderMoviesTrailerWithObject:(NSArray *)movieTrailerist ;
 
 @end
 
@@ -21,8 +22,14 @@
 -(void) getMovieDetail: (MoviePOJO*) movie;
 -(void) saveFavouriteMovies: (MoviePOJO*) movie;
 -(void) playTrailer: (MoviePOJO*) movie;
+- (void)retrieveTrailers:(NSArray *)moviesTrailer  ;
 -(void) onSuccess : (MoviePOJO*) movie;
 -(void) onFail : (NSString*) errorMessage;
+@end
+
+@protocol IMovieDetailsManager <NSObject>
+
+-(void) getMoviesDetails : (id<IMovieDetailsPresenter>) movieDetailsPresenter;
 
 @end
 

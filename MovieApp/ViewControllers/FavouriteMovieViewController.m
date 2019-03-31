@@ -59,17 +59,23 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"moviecell" forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"favouritecell" forIndexPath:indexPath];
     
     // Configure the cell
     UIImageView *imageView = [cell viewWithTag:1];
-    
-    // [imageView setImage:[UIImage imageNamed:[images objectAtIndex:indexPath.row]]];
+
     NSString *imgPath=@"https://image.tmdb.org/t/p/w185//";
-    imgPath=[imgPath stringByAppendingString:myData[indexPath.row][@"poster_path"]];
-    [imageView sd_setImageWithURL:[NSURL URLWithString: imgPath]];
-placeholderImage:[UIImage imageNamed:@"1.png"];
-    //printf("%s   %i \n " ,myData[indexPath.row] ,indexPath.row);
+    NSString *imgData=@"";//myData[indexPath.row][@"poster_path"];// poster_path  for network
+     MoviePOJO *movieDetails2=myData[indexPath.row];
+    imgData=movieDetails2.poster_path;//myData[indexPath.row][@"poster_path"];// poster_path  for network
+    
+    if (imgData == (id)[NSNull null] || imgData.length == 0 ) {
+        imgData = @"";
+    }
+    imgPath=[imgPath stringByAppendingString: imgData   ];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:imgPath]
+                 placeholderImage:[UIImage imageNamed:@"defaultPoster.jpg"]];
+    
     return cell;
 }
 

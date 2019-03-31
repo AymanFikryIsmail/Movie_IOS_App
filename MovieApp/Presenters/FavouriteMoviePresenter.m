@@ -24,10 +24,10 @@
 - (void)getMovies {
     [_movieView showLoading];
         NSArray *moviesArray=[[DBManager getInstance] getFavData] ;
-         [self onSuccess:moviesArray];
+    [self onSuccess:moviesArray: false];
 }
 
-- (void)onSuccess:(NSArray *)movies {
+- (void)onSuccess:(NSArray *)movies :(Boolean)isFromNetwrok {
     
     NSUserDefaults *def=[NSUserDefaults standardUserDefaults];
     BOOL isFirst= [def boolForKey:@"isLunch"];
@@ -47,5 +47,8 @@
     [_movieView showErrorMessage:errorMessage];
     [_movieView hideLoading];
 }
+
+
+
 
 @end

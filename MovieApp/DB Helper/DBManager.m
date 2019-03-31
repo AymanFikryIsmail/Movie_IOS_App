@@ -146,7 +146,7 @@ static sqlite3_stmt    *statement;
     NSMutableArray* result=nil;
     if (sqlite3_open(dbpath, &movieDB) == SQLITE_OK)
     {
-        NSString *querySQL = [NSString stringWithFormat:@"SELECT movieId, title, poster_path,  overview, vote_average, release_date ,isFavourite FROM movies  where  isFavourite= true"];
+        NSString *querySQL = [NSString stringWithFormat:@"SELECT movieId, title, poster_path,  overview, vote_average, release_date ,isFavourite FROM movies  where  isFavourite=  \"%@\" " ,@"true"];
         const char *query_stmt = [querySQL UTF8String];
         if (sqlite3_prepare_v2(movieDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
         {

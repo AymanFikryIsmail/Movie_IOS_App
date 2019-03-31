@@ -28,9 +28,13 @@
      //  [[UIApplication sharedApplication] openURL:[NSURL URLWithString: youtubePageName] options:@{} completionHandler:nil];
 }
 - (void)getMovieDetail : (MoviePOJO*) movie{
+    Moviesservice *movieService = [Moviesservice new];
+    [movieService getMoviesDetails:self];
     [self onSuccess:movie];
 }
-
+- (void)retrieveTrailers:(NSArray *)moviesTrailer  {
+    [_movieDetailsView  renderMoviesTrailerWithObject:moviesTrailer];
+}
 - (void)onSuccess:(MoviePOJO*) movie{
 [_movieDetailsView  renderMovieDetailsWithObject];
 [_movieDetailsView hideLoading];

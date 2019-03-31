@@ -9,16 +9,21 @@
 #import "MoviedetailsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MoviePOJO.h"
+#import <HCSStarRatingView/HCSStarRatingView.h>
+
 @interface MoviedetailsViewController ()
 {
     MoviePOJO* movieDetails;
-    
+    NSMutableArray * movieTrailerlist ;
+    HCSStarRatingView *starRatingView;
 }
 @property (weak, nonatomic) IBOutlet UILabel *movieTilte;
 @property (weak, nonatomic) IBOutlet UIImageView *movieImage;
 @property (weak, nonatomic) IBOutlet UITextView *movieOverview;
 @property (weak, nonatomic) IBOutlet UILabel *movieDate;
 @property (weak, nonatomic) IBOutlet UIImageView *movieFavImage;
+@property (weak, nonatomic) IBOutlet UITableView *trailerTableView;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroungImage;
 
 @end
 
@@ -26,6 +31,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     starRatingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(200, 300, 150, 50)];
+    starRatingView.maximumValue = 5;
+    starRatingView.minimumValue = 0;
+   
+    starRatingView.accurateHalfStars = YES;
+    starRatingView.allowsHalfStars = YES;
+
+    starRatingView.emptyStarImage = [UIImage imageNamed:@"fav.png"];
+    starRatingView.halfStarImage = [UIImage imageNamed:@"fav.png"]; // optional
+    starRatingView.filledStarImage = [UIImage imageNamed:@"fav2.png"];
+    starRatingView.tintColor = [UIColor redColor];
+    starRatingView.backgroundColor=[UIColor clearColor];
+   // [starRatingView addTarget:self action:@selector(didChangeValue:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:starRatingView];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -71,6 +90,7 @@
     _movieTilte.text=movieDetails.title;
     _movieOverview.text=movieDetails.overview;
     _movieDate.text=movieDetails.release_date;
+    starRatingView.value=[movieDetails.vote_average floatValue]/2;
     if([movieDetails.isFavourite isEqualToString:@"true"]){
         _movieFavImage.image=[UIImage imageNamed:@"fav2.png"];
     }
@@ -85,8 +105,14 @@
     }
     
     imgPath=[imgPath stringByAppendingString: imgData   ];
-    [_movieImage sd_setImageWithURL:[NSURL URLWithString: imgPath]];
-placeholderImage:[UIImage imageNamed:@"defaultPoster.jpg"];
+    [_movieImage sd_setImageWithURL:[NSURL URLWithString:imgPath]
+                 placeholderImage:[UIImage imageNamed:@"defaultPoster.jpg"]];
+    [_backgroungImage sd_setImageWithURL:[NSURL URLWithString:imgPath]
+                   placeholderImage:[UIImage imageNamed:@"defaultPoster.jpg"]];
+    //[[_movieImage sd_setImageWithURL:[NSURL URLWithString: imgPath]placeholderImage:[UIImage imageNamed:@"defaultPoster.jpg"];
+    
+   // [_backgroungImage sd_setImageWithURL:[NSURL URLWithString: imgPath]];
+//placeholderImage:[UIImage imageNamed:@"defaultPoster.jpg"];
     
 }
 - (IBAction)tabFavImage:(id)sender {
@@ -100,7 +126,42 @@ placeholderImage:[UIImage imageNamed:@"defaultPoster.jpg"];
         movieDetails.isFavourite=@"false";
         [[DBManager getInstance] updateFavData:movieDetails];
     }
+    
+ 
+    
+}
+- (void)renderMoviesTrailerWithObject:(NSArray *)movieTrailerist  {
+    self->movieTrailerlist=movieTrailerlist;
+    [self.trailerTableView reloadData];
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+#warning Incomplete implementation, return the number of sections
+    return 1;
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+#warning Incomplete implementation, return the number of rows
+    return 2;
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    return 100;
+    
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"trailercell" forIndexPath:indexPath];
+      UIImageView  *imageView  = [cell viewWithTag:1];
+    UILabel *trailerLabel = [cell viewWithTag:2];
+    
+//    [rightLabe setText:[left objectAtIndex:indexPath.row]];
+//    imageView.image = [UIImage imageNamed:[images objectAtIndex:indexPath.row]];
+    
+    return cell;
+}
 
 @end

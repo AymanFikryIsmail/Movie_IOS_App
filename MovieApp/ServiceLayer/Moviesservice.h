@@ -10,12 +10,13 @@
 #import "NetworkObserver.h"
 #import "ServiceProtocol.h"
 #import "MovieContract.h"
+#import "MovieDetailsContract.h"
 #import "NetworkManager.h"
 
-@interface Moviesservice : NSObject <NetworkObserver , ServiceProtocol , IMovieManager>
+@interface Moviesservice : NSObject <NetworkObserver , ServiceProtocol , IMovieManager , IMovieDetailsManager>
 
 @property id<IMoviePresenter> moviePresenter;
-
+@property id<IMovieDetailsPresenter> moviedetailsPresenter;
 
 
 @end

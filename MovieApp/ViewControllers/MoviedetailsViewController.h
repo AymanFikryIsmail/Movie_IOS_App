@@ -10,7 +10,7 @@
 #import "MovieDetailsContract.h"
 #import "MoviedetailsPresenter.h"
 
-@interface MoviedetailsViewController : UIViewController<IMovieDetailsView>
+@interface MoviedetailsViewController : UIViewController<IMovieDetailsView , UITableViewDelegate , UITableViewDataSource >
 
 
 -(void) setMovieDetail :(MoviePOJO* )movieDetail;
