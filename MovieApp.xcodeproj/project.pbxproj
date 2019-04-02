@@ -31,6 +31,7 @@
 		841B95B4224EA8E4002FCBBC /* fav2.png in Resources */ = {isa = PBXBuildFile; fileRef = 841B95B1224EA8E3002FCBBC /* fav2.png */; };
 		841C9851224D4D6B001D826B /* MoviedetailsPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 841C9850224D4D6A001D826B /* MoviedetailsPresenter.m */; };
 		844DC2252247F79A00FE1C40 /* MoviePOJO.m in Sources */ = {isa = PBXBuildFile; fileRef = 844DC2242247F79A00FE1C40 /* MoviePOJO.m */; };
+		8465251A2253405200358E64 /* TrailerPOJO.m in Sources */ = {isa = PBXBuildFile; fileRef = 846525192253405200358E64 /* TrailerPOJO.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,8 @@
 		841C9853224D4DEB001D826B /* MovieDetailsContract.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDetailsContract.h; sourceTree = "<group>"; };
 		844DC2232247F79A00FE1C40 /* MoviePOJO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviePOJO.h; sourceTree = "<group>"; };
 		844DC2242247F79A00FE1C40 /* MoviePOJO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviePOJO.m; sourceTree = "<group>"; };
+		846525182253405200358E64 /* TrailerPOJO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrailerPOJO.h; sourceTree = "<group>"; };
+		846525192253405200358E64 /* TrailerPOJO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrailerPOJO.m; sourceTree = "<group>"; };
 		E5D270114864B74B6585DCEF /* Pods-MovieApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieApp.debug.xcconfig"; path = "Target Support Files/Pods-MovieApp/Pods-MovieApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -231,6 +234,8 @@
 			children = (
 				844DC2232247F79A00FE1C40 /* MoviePOJO.h */,
 				844DC2242247F79A00FE1C40 /* MoviePOJO.m */,
+				846525182253405200358E64 /* TrailerPOJO.h */,
+				846525192253405200358E64 /* TrailerPOJO.m */,
 			);
 			path = POJO;
 			sourceTree = "<group>";
@@ -479,6 +484,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8465251A2253405200358E64 /* TrailerPOJO.m in Sources */,
 				841C9851224D4D6B001D826B /* MoviedetailsPresenter.m in Sources */,
 				8409E1722247EF8700ACE930 /* main.m in Sources */,
 				844DC2252247F79A00FE1C40 /* MoviePOJO.m in Sources */,

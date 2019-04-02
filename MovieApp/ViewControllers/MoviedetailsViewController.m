@@ -119,12 +119,14 @@
     if([movieDetails.isFavourite isEqualToString:@"false"]){
         _movieFavImage.image=[UIImage imageNamed:@"fav2.png"];
         movieDetails.isFavourite=@"true";
-        [[DBManager getInstance] updateFavData:movieDetails];
+        [[DBManager getInstance] saveFavouriteData:movieDetails];
+      //  [[DBManager getInstance] updateFavData:movieDetails];
     }
     else{
         _movieFavImage.image=[UIImage imageNamed:@"fav.png"];
         movieDetails.isFavourite=@"false";
-        [[DBManager getInstance] updateFavData:movieDetails];
+        [[DBManager getInstance] saveFavouriteData:movieDetails];  
+       // [[DBManager getInstance] updateFavData:movieDetails];  saveFavouriteData
     }
     
  
@@ -148,7 +150,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
-    return 100;
+    return 50;
     
     
 }

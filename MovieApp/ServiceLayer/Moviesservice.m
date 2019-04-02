@@ -9,6 +9,7 @@
 #import "Moviesservice.h"
 
 #import "MoviePOJO.h"
+#import "TrailerPOJO.h"
 @implementation Moviesservice
 
 - (void)handleFailWithErrorMessage:(NSString *)errorMessage {
@@ -37,9 +38,19 @@
     
     else if ([serviceName isEqualToString:@"Moviesdetailsservice"]) {
          NSMutableArray  *moviesTrailerArray = [NSMutableArray new];
+        NSString *youtubeBaseUrl=@"https://www.youtube.com/watch?v=";
+        NSDictionary *dict = (NSDictionary*)jsonData;
+        NSMutableArray *jsonObj=[[dict objectForKey:@"results"] mutableCopy];
+        for(int i=0;i<jsonObj.count;++i){
+            TrailerPOJO *tempTrailer=[TrailerPOJO new];
+            NSDictionary *tempDic=[jsonObj objectAtIndex:i];
+            tempTrailer.trailerId=[tempDic objectForKey:@"id"];
+            NSString *movieTrailerKey=[tempDic objectForKey:@"key"];
+            tempTrailer.TrailerUrl=[NSString stringWithFormat:@"%@%@",youtubeBaseUrl,movieTrailerKey];
+
+            [moviesTrailerArray addObject:tempTrailer];
+        }
  [_moviedetailsPresenter retrieveTrailers:moviesTrailerArray ];
-        
-        
     }
     
 }
@@ -55,10 +66,10 @@
     [NetworkManager connectGetToURL:@"https://api.themoviedb.org/3/discover/movie?sort_by=popularity.%20desc&api_key=655584bcccf3ea4d6c31de42c1468bf8" serviceName:@"Moviesservice" serviceProtocol:self];
 }
 
-- (void)getMoviesDetails:(id<IMovieDetailsPresenter>)movieDetailsPresenter {
+- (void)getMoviesDetails:(id<IMovieDetailsPresenter>)movieDetailsPresenter :(NSString*)movieId{
     _moviedetailsPresenter= movieDetailsPresenter;
-
-    [NetworkManager connectGetToURL:@"https://api.themoviedb.org/3/discover/movie?sort_by=popularity.%20desc&api_key=655584bcccf3ea4d6c31de42c1468bf8" serviceName:@"Moviesdetailsservice" serviceProtocol:self];
+    NSString *urlStr=[NSString stringWithFormat:@"http://api.themoviedb.org/3/movie/%d/videos?api_key=655584bcccf3ea4d6c31de42c1468bf8",[movieId intValue]];
+    [NetworkManager connectGetToURL:urlStr serviceName:@"Moviesdetailsservice" serviceProtocol:self];
 }
 
 @end

@@ -21,10 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 +(DBManager*) getInstance;
 -(BOOL) createDB;
 -(BOOL) saveData : (NSArray*)movieList;
+-(BOOL) saveFavouriteData :(MoviePOJO*) movie;
 -(BOOL)updateFavData :(MoviePOJO*) movie;
 -(NSArray*) getAllData;
 -(NSArray*) getFavData;
-
+-(BOOL)deleteAll;
 @end
 
 NS_ASSUME_NONNULL_END

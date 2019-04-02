@@ -29,12 +29,6 @@
 
 - (void)onSuccess:(NSArray *)movies :(Boolean)isFromNetwrok {
     
-    NSUserDefaults *def=[NSUserDefaults standardUserDefaults];
-    BOOL isFirst= [def boolForKey:@"isLunch"];
-    if (!isFirst) {
-        [[DBManager getInstance] saveData:movies ] ;
-        [def setBool:true  forKey:@"isLunch"];
-    }
     
     [_movieView renderMoviesWithObject:movies:false];
     [_movieView hideLoading];

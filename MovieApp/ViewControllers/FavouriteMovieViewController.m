@@ -9,6 +9,8 @@
 #import "FavouriteMovieViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MoviePOJO.h"
+
+#import "MoviedetailsViewController.h"
 @interface FavouriteMovieViewController ()
 {
     
@@ -28,7 +30,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-  
+    self.title =@"Favourite";
     myData = [NSMutableArray new];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         FavouriteMoviePresenter *moviePresenter = [[FavouriteMoviePresenter alloc] initWithMovieView:self];
@@ -79,6 +81,17 @@
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    MoviedetailsViewController *detail=[self.storyboard instantiateViewControllerWithIdentifier:@"moviedetail"];
+    MoviePOJO *movieDetails=myData[indexPath.row];
+
+    [detail setMovieDetail:movieDetails];
+    [self.navigationController pushViewController:detail animated:YES];
+    
+    
+    
+}
 #pragma mark <UICollectionViewDelegate>
 
 

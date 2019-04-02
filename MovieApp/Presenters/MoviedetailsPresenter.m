@@ -29,7 +29,7 @@
 }
 - (void)getMovieDetail : (MoviePOJO*) movie{
     Moviesservice *movieService = [Moviesservice new];
-    [movieService getMoviesDetails:self];
+    [movieService getMoviesDetails:self : movie.mid];
     [self onSuccess:movie];
 }
 - (void)retrieveTrailers:(NSArray *)moviesTrailer  {

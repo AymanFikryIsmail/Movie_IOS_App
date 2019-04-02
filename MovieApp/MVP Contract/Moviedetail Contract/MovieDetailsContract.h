@@ -29,7 +29,7 @@
 
 @protocol IMovieDetailsManager <NSObject>
 
--(void) getMoviesDetails : (id<IMovieDetailsPresenter>) movieDetailsPresenter;
+-(void) getMoviesDetails : (id<IMovieDetailsPresenter>) movieDetailsPresenter :(NSString*)movieId;
 
 @end
 
