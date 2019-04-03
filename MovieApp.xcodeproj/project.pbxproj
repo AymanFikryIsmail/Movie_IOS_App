@@ -24,7 +24,11 @@
 		84101699224827D0003EF420 /* MoviedetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84101698224827D0003EF420 /* MoviedetailsViewController.m */; };
 		8410169C22482B70003EF420 /* MoviePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8410169B22482B70003EF420 /* MoviePresenter.m */; };
 		8410169E2248305F003EF420 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8410169D2248305F003EF420 /* 1.png */; };
+		841528E62254EB6A0080C6B5 /* ReviewPOJO.m in Sources */ = {isa = PBXBuildFile; fileRef = 841528E52254EB6A0080C6B5 /* ReviewPOJO.m */; };
+		84168FE02254B5D9005CD124 /* MovieReviewsPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84168FDF2254B5D9005CD124 /* MovieReviewsPresenter.m */; };
+		84168FE32254BEF7005CD124 /* MovieReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84168FE22254BEF7005CD124 /* MovieReviewsViewController.m */; };
 		84169ED3224B661F008AE9EF /* FavouriteMoviePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84169ED2224B661F008AE9EF /* FavouriteMoviePresenter.m */; };
+		841997E32253F21000F5E0CB /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 841997E22253F21000F5E0CB /* background.jpg */; };
 		841B95AE224EA1A9002FCBBC /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 841B95AD224EA1A8002FCBBC /* play.png */; };
 		841B95B2224EA8E4002FCBBC /* fav.png in Resources */ = {isa = PBXBuildFile; fileRef = 841B95AF224EA8E3002FCBBC /* fav.png */; };
 		841B95B3224EA8E4002FCBBC /* defaultPoster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 841B95B0224EA8E3002FCBBC /* defaultPoster.jpg */; };
@@ -88,8 +92,16 @@
 		8410169A22482B70003EF420 /* MoviePresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviePresenter.h; sourceTree = "<group>"; };
 		8410169B22482B70003EF420 /* MoviePresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviePresenter.m; sourceTree = "<group>"; };
 		8410169D2248305F003EF420 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = ../../../1.png; sourceTree = "<group>"; };
+		841528E42254EB6A0080C6B5 /* ReviewPOJO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReviewPOJO.h; sourceTree = "<group>"; };
+		841528E52254EB6A0080C6B5 /* ReviewPOJO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReviewPOJO.m; sourceTree = "<group>"; };
+		84168FDD2254B4BB005CD124 /* MovieReviewsContract.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieReviewsContract.h; sourceTree = "<group>"; };
+		84168FDE2254B5D9005CD124 /* MovieReviewsPresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieReviewsPresenter.h; sourceTree = "<group>"; };
+		84168FDF2254B5D9005CD124 /* MovieReviewsPresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieReviewsPresenter.m; sourceTree = "<group>"; };
+		84168FE12254BEF7005CD124 /* MovieReviewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieReviewsViewController.h; sourceTree = "<group>"; };
+		84168FE22254BEF7005CD124 /* MovieReviewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieReviewsViewController.m; sourceTree = "<group>"; };
 		84169ED1224B661F008AE9EF /* FavouriteMoviePresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavouriteMoviePresenter.h; sourceTree = "<group>"; };
 		84169ED2224B661F008AE9EF /* FavouriteMoviePresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavouriteMoviePresenter.m; sourceTree = "<group>"; };
+		841997E22253F21000F5E0CB /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		841B95AD224EA1A8002FCBBC /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		841B95AF224EA8E3002FCBBC /* fav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fav.png; sourceTree = "<group>"; };
 		841B95B0224EA8E3002FCBBC /* defaultPoster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = defaultPoster.jpg; sourceTree = "<group>"; };
@@ -165,6 +177,7 @@
 		8409E1612247EF8100ACE930 /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
+				841997E22253F21000F5E0CB /* background.jpg */,
 				84077B1D2248C3EC00970D72 /* DB Helper */,
 				8410169D2248305F003EF420 /* 1.png */,
 				844DC22B2247FA9700FE1C40 /* MVP Contract */,
@@ -221,6 +234,14 @@
 			path = "Movie Contract";
 			sourceTree = "<group>";
 		};
+		84168FDC2254B488005CD124 /* MovieReview Contract */ = {
+			isa = PBXGroup;
+			children = (
+				84168FDD2254B4BB005CD124 /* MovieReviewsContract.h */,
+			);
+			path = "MovieReview Contract";
+			sourceTree = "<group>";
+		};
 		841C9852224D4DBC001D826B /* Moviedetail Contract */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +257,8 @@
 				844DC2242247F79A00FE1C40 /* MoviePOJO.m */,
 				846525182253405200358E64 /* TrailerPOJO.h */,
 				846525192253405200358E64 /* TrailerPOJO.m */,
+				841528E42254EB6A0080C6B5 /* ReviewPOJO.h */,
+				841528E52254EB6A0080C6B5 /* ReviewPOJO.m */,
 			);
 			path = POJO;
 			sourceTree = "<group>";
@@ -258,6 +281,8 @@
 				84101695224827BD003EF420 /* FavouriteMovieViewController.m */,
 				84101697224827D0003EF420 /* MoviedetailsViewController.h */,
 				84101698224827D0003EF420 /* MoviedetailsViewController.m */,
+				84168FE12254BEF7005CD124 /* MovieReviewsViewController.h */,
+				84168FE22254BEF7005CD124 /* MovieReviewsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -291,6 +316,8 @@
 				84169ED2224B661F008AE9EF /* FavouriteMoviePresenter.m */,
 				841C984F224D4D6A001D826B /* MoviedetailsPresenter.h */,
 				841C9850224D4D6A001D826B /* MoviedetailsPresenter.m */,
+				84168FDE2254B5D9005CD124 /* MovieReviewsPresenter.h */,
+				84168FDF2254B5D9005CD124 /* MovieReviewsPresenter.m */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -298,6 +325,7 @@
 		844DC22B2247FA9700FE1C40 /* MVP Contract */ = {
 			isa = PBXGroup;
 			children = (
+				84168FDC2254B488005CD124 /* MovieReview Contract */,
 				841C9852224D4DBC001D826B /* Moviedetail Contract */,
 				8410168322482130003EF420 /* Movie Contract */,
 				84101682224820A4003EF420 /* BaseContract */,
@@ -427,6 +455,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841997E32253F21000F5E0CB /* background.jpg in Resources */,
 				8409E16F2247EF8700ACE930 /* LaunchScreen.storyboard in Resources */,
 				8410169E2248305F003EF420 /* 1.png in Resources */,
 				841B95B4224EA8E4002FCBBC /* fav2.png in Resources */,
@@ -485,6 +514,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8465251A2253405200358E64 /* TrailerPOJO.m in Sources */,
+				841528E62254EB6A0080C6B5 /* ReviewPOJO.m in Sources */,
 				841C9851224D4D6B001D826B /* MoviedetailsPresenter.m in Sources */,
 				8409E1722247EF8700ACE930 /* main.m in Sources */,
 				844DC2252247F79A00FE1C40 /* MoviePOJO.m in Sources */,
@@ -497,6 +527,8 @@
 				8409845B2248DAB10003B155 /* NetworkManager.m in Sources */,
 				8409845E2248DBBD0003B155 /* Moviesservice.m in Sources */,
 				84077B202248C43600970D72 /* DBManager.m in Sources */,
+				84168FE32254BEF7005CD124 /* MovieReviewsViewController.m in Sources */,
+				84168FE02254B5D9005CD124 /* MovieReviewsPresenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

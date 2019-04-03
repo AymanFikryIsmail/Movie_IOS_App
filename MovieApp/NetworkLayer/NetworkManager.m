@@ -31,7 +31,7 @@ static NSString* classServiceName;
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             
-            [networkObserverDelegate handleFailWithErrorMessage:[error localizedDescription]];
+            [networkObserverDelegate handleFailWithErrorMessage:[error localizedDescription] :classServiceName];
         } else {
             
             [networkObserverDelegate handleSuccessWithJSONData: responseObject:classServiceName];

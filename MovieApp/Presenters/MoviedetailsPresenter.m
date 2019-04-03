@@ -19,10 +19,10 @@
     }
     return self;
 }
--(void) playTrailer: (MoviePOJO*) movie{
+-(void) playTrailer: (TrailerPOJO*) movie{
  
     UIApplication *application = [UIApplication sharedApplication];
-    NSURL *youtube = [NSURL URLWithString:@"ttp://www.youtube.com/watch?v=Jeh40KFFS5Y"];
+    NSURL *youtube = [NSURL URLWithString:movie.TrailerUrl];
     [application openURL:youtube options:@{} completionHandler:nil];
 
      //  [[UIApplication sharedApplication] openURL:[NSURL URLWithString: youtubePageName] options:@{} completionHandler:nil];

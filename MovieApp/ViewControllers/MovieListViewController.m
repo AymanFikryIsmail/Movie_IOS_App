@@ -18,6 +18,8 @@
     UIActivityIndicatorView *indicator;
      Boolean isDataFromNetwrok ;
 }
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+- (IBAction)sortBtn:(id)sender;
 @property (weak, nonatomic) IBOutlet UICollectionView *moviesCollectionView;
 
 @end
@@ -26,7 +28,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title =@"Movies";
+    self.title  =@"Movies";
+    //[self.toolbar.tit]
+    //self.titleB
+    //self.moviesCollectionView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.jpg"]];
     progreesAlert = [[UIAlertView alloc] initWithTitle:@"\n\nLoading data\nPlease Wait..." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
     
     indicator= [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -52,6 +57,10 @@
     });
      [self.moviesCollectionView reloadData];
 }
+- (IBAction)sort:(id)sender {
+    printf("sooooort");
+}
+
 /*
 #pragma mark - Navigation
 
@@ -118,8 +127,9 @@
 
 
    [detail setMovieDetail:movieDetails];
-    [self.navigationController pushViewController:detail animated:YES];
     
+    [self presentViewController:detail animated:YES completion:nil];
+
     
     
 }
@@ -156,4 +166,6 @@
     
 }
 
+- (IBAction)sortBtn:(id)sender {
+}
 @end

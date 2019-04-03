@@ -10,10 +10,20 @@
 
 #import "MoviePOJO.h"
 #import "TrailerPOJO.h"
+#import "ReviewPOJO.h"
 @implementation Moviesservice
 
-- (void)handleFailWithErrorMessage:(NSString *)errorMessage {
+- (void)handleFailWithErrorMessage:(NSString *)errorMessage :(NSString *)serviceName{
+    if ([serviceName isEqualToString:@"Moviesservice"]) {
     [_moviePresenter onFail:errorMessage];
+    }
+    
+    else if ([serviceName isEqualToString:@"Moviesdetailsservice"]) {
+        [_moviedetailsPresenter onFail:errorMessage ];
+    }
+    else if ([serviceName isEqualToString:@"MoviesReviewsService"]) {
+        [_moviedetailsPresenter onFail:errorMessage ];
+    }
 }
 
 - (void)handleSuccessWithJSONData:(id)jsonData :(NSString *)serviceName {
@@ -45,6 +55,7 @@
             TrailerPOJO *tempTrailer=[TrailerPOJO new];
             NSDictionary *tempDic=[jsonObj objectAtIndex:i];
             tempTrailer.trailerId=[tempDic objectForKey:@"id"];
+            tempTrailer.trailerName=[tempDic objectForKey:@"name"];
             NSString *movieTrailerKey=[tempDic objectForKey:@"key"];
             tempTrailer.TrailerUrl=[NSString stringWithFormat:@"%@%@",youtubeBaseUrl,movieTrailerKey];
 
@@ -52,6 +63,22 @@
         }
  [_moviedetailsPresenter retrieveTrailers:moviesTrailerArray ];
     }
+    else if ([serviceName isEqualToString:@"MoviesReviewsService"]) {
+        NSMutableArray  *moviesReviewsArray = [NSMutableArray new];
+        NSDictionary *dict = (NSDictionary*)jsonData;
+        NSMutableArray *jsonObj=[[dict objectForKey:@"results"] mutableCopy];
+        for(int i=0;i<jsonObj.count;++i){
+            ReviewPOJO *tempReview=[ReviewPOJO new];
+            NSDictionary *tempDic=[jsonObj objectAtIndex:i];
+            tempReview.author=[tempDic objectForKey:@"author"];
+            tempReview.content=[tempDic objectForKey:@"content"];
+            [moviesReviewsArray addObject:tempReview];
+        }
+        [_movieReviewsPresenter onSuccess:moviesReviewsArray];
+    }
+    
+    
+    
     
 }
 
@@ -68,8 +95,17 @@
 
 - (void)getMoviesDetails:(id<IMovieDetailsPresenter>)movieDetailsPresenter :(NSString*)movieId{
     _moviedetailsPresenter= movieDetailsPresenter;
-    NSString *urlStr=[NSString stringWithFormat:@"http://api.themoviedb.org/3/movie/%d/videos?api_key=655584bcccf3ea4d6c31de42c1468bf8",[movieId intValue]];
+    
+    NSString *urlStr=[NSString stringWithFormat:@"http://api.themoviedb.org/3/movie/%d/videos?api_key=655584bcccf3ea4d6c31de42c1468bf8",[movieId intValue]];//383
     [NetworkManager connectGetToURL:urlStr serviceName:@"Moviesdetailsservice" serviceProtocol:self];
 }
+
+- (void)getMoviesReviews:(id<IMovieDetailsPresenter>)movieDetailsPresenter :(NSString*)movieId{
+    _moviedetailsPresenter= movieDetailsPresenter;
+    
+    NSString *urlStr=[NSString stringWithFormat:@"http://api.themoviedb.org/3/movie/%d/reviews?api_key=655584bcccf3ea4d6c31de42c1468bf8",[movieId intValue]];//383
+    [NetworkManager connectGetToURL:urlStr serviceName:@"MoviesReviewsService" serviceProtocol:self];
+}
+
 
 @end

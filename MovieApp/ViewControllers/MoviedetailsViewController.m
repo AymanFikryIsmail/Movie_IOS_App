@@ -10,12 +10,13 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MoviePOJO.h"
 #import <HCSStarRatingView/HCSStarRatingView.h>
-
+#import "MovieReviewsViewController.h"
 @interface MoviedetailsViewController ()
 {
     MoviePOJO* movieDetails;
     NSMutableArray * movieTrailerlist ;
     HCSStarRatingView *starRatingView;
+    MoviedetailsPresenter *movieDetailsPresenter ;
 }
 @property (weak, nonatomic) IBOutlet UILabel *movieTilte;
 @property (weak, nonatomic) IBOutlet UIImageView *movieImage;
@@ -53,7 +54,7 @@
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         //Background Thread
         
-        MoviedetailsPresenter *movieDetailsPresenter = [[MoviedetailsPresenter alloc] initWithMovieVDetailsiew:self];
+         movieDetailsPresenter = [[MoviedetailsPresenter alloc] initWithMovieVDetailsiew:self];
         [movieDetailsPresenter getMovieDetail:self->movieDetails];
     });
 }
@@ -128,12 +129,19 @@
         [[DBManager getInstance] saveFavouriteData:movieDetails];  
        // [[DBManager getInstance] updateFavData:movieDetails];  saveFavouriteData
     }
-    
- 
-    
+
 }
+- (IBAction)gotoReviews:(id)sender {
+    MovieReviewsViewController *review=[self.storyboard instantiateViewControllerWithIdentifier:@"moviereview"];
+    [review setMovieDetail:movieDetails];
+    [self presentViewController:review animated:YES completion:nil];
+}
+- (IBAction)backToHome:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)renderMoviesTrailerWithObject:(NSArray *)movieTrailerist  {
-    self->movieTrailerlist=movieTrailerlist;
+    self->movieTrailerlist=movieTrailerist;
     [self.trailerTableView reloadData];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -143,7 +151,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 2;
+    return [movieTrailerlist count];
 }
 
 
@@ -157,13 +165,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"trailercell" forIndexPath:indexPath];
-      UIImageView  *imageView  = [cell viewWithTag:1];
+    //  UIImageView  *imageView  = [cell viewWithTag:1];
     UILabel *trailerLabel = [cell viewWithTag:2];
-    
-//    [rightLabe setText:[left objectAtIndex:indexPath.row]];
+    TrailerPOJO* trailer=[movieTrailerlist objectAtIndex:indexPath.row];
+    [trailerLabel setText:[trailer trailerName]];
 //    imageView.image = [UIImage imageNamed:[images objectAtIndex:indexPath.row]];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TrailerPOJO* trailer=[movieTrailerlist objectAtIndex:indexPath.row];
+    [movieDetailsPresenter playTrailer:trailer];
+    
+    
+    
 }
 
 @end

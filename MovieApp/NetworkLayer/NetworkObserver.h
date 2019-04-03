@@ -11,6 +11,6 @@
 @protocol NetworkObserver <NSObject>
 
 -(void) handleSuccessWithJSONData : (id) jsonData : (NSString*) serviceName;
--(void) handleFailWithErrorMessage : (NSString*) errorMessage;
+-(void) handleFailWithErrorMessage : (NSString*) errorMessage :(NSString *)serviceName;
 
 @end

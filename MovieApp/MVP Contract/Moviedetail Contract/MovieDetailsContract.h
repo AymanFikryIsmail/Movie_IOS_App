@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "BaseContract.h"
 #import "MoviePOJO.h"
+#import "TrailerPOJO.h"
+
 //@protocol MovieDetailsContract <NSObject>
 @protocol IMovieDetailsView <IBaseView>
 
@@ -21,7 +23,7 @@
 
 -(void) getMovieDetail: (MoviePOJO*) movie;
 -(void) saveFavouriteMovies: (MoviePOJO*) movie;
--(void) playTrailer: (MoviePOJO*) movie;
+-(void) playTrailer: (TrailerPOJO*) movie;
 - (void)retrieveTrailers:(NSArray *)moviesTrailer  ;
 -(void) onSuccess : (MoviePOJO*) movie;
 -(void) onFail : (NSString*) errorMessage;
