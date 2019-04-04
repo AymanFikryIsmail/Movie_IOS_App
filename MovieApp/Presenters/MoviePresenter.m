@@ -23,10 +23,8 @@
     
     return self;
 }
-- (void)getMovies {
+- (void)getMovies :(int) sortType {
     [_movieView showLoading];
- 
-    
     AFNetworkReachabilityManager *reachability = [AFNetworkReachabilityManager sharedManager];
     [reachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         switch (status) {
@@ -53,7 +51,7 @@
     if(data !=nil)
     {
         Moviesservice *movieService = [Moviesservice new];
-        [movieService getMovies:self];
+        [movieService getMovies:self : sortType] ;
     }
     else
     {

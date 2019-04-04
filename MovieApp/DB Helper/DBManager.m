@@ -84,7 +84,7 @@ static sqlite3_stmt    *statement;
         {
             isSuccess= true;
         } else {
-            printf("Failed to open/create database");
+            printf("Failed to open/create database %i" , i);
             isSuccess= false;
         }
        

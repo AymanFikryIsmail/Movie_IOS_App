@@ -17,9 +17,9 @@
     UIAlertView *progreesAlert;
     UIActivityIndicatorView *indicator;
      Boolean isDataFromNetwrok ;
+    MoviePresenter *moviePresenter;
 }
-@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
-- (IBAction)sortBtn:(id)sender;
+
 @property (weak, nonatomic) IBOutlet UICollectionView *moviesCollectionView;
 
 @end
@@ -28,9 +28,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title  =@"Movies";
-    //[self.toolbar.tit]
-    //self.titleB
     //self.moviesCollectionView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.jpg"]];
     progreesAlert = [[UIAlertView alloc] initWithTitle:@"\n\nLoading data\nPlease Wait..." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
     
@@ -50,15 +47,19 @@
     myData = [NSMutableArray new];
     
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        //Background Thread
-        
-        MoviePresenter *moviePresenter = [[MoviePresenter alloc] initWithMovieView:self];
-        [moviePresenter getMovies];
+        self->moviePresenter = [[MoviePresenter alloc] initWithMovieView:self];
+        [self->moviePresenter getMovies:0];
     });
      [self.moviesCollectionView reloadData];
 }
 - (IBAction)sort:(id)sender {
-    printf("sooooort");
+    printf("aaa");
+    
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        
+        [self->moviePresenter getMovies :1];
+    });
+    [self.moviesCollectionView reloadData];
 }
 
 /*
@@ -127,8 +128,9 @@
 
 
    [detail setMovieDetail:movieDetails];
-    
-    [self presentViewController:detail animated:YES completion:nil];
+    detail.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:detail animated:YES];
+   // [self presentViewController:detail animated:YES completion:nil];
 
     
     

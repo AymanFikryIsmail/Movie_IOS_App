@@ -34,7 +34,7 @@
     myData = [NSMutableArray new];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         FavouriteMoviePresenter *moviePresenter = [[FavouriteMoviePresenter alloc] initWithMovieView:self];
-        [moviePresenter getMovies];
+        [moviePresenter getMovies :0];
     });
 }
 /*
@@ -87,6 +87,7 @@
     MoviePOJO *movieDetails=myData[indexPath.row];
 
     [detail setMovieDetail:movieDetails];
+      detail.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:detail animated:YES];
     
     

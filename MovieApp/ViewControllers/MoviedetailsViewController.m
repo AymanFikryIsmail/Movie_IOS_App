@@ -32,6 +32,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.title=@"Movie Details";
      starRatingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(200, 300, 150, 50)];
     starRatingView.maximumValue = 5;
     starRatingView.minimumValue = 0;
@@ -134,11 +136,12 @@
 - (IBAction)gotoReviews:(id)sender {
     MovieReviewsViewController *review=[self.storyboard instantiateViewControllerWithIdentifier:@"moviereview"];
     [review setMovieDetail:movieDetails];
-    [self presentViewController:review animated:YES completion:nil];
+   // [self presentViewController:review animated:YES completion:nil];
+      [self.navigationController pushViewController:review animated:YES];
 }
-- (IBAction)backToHome:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+//- (IBAction)backToHome:(id)sender {
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 
 - (void)renderMoviesTrailerWithObject:(NSArray *)movieTrailerist  {
     self->movieTrailerlist=movieTrailerist;

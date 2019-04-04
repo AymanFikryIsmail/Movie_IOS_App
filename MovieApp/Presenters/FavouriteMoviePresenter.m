@@ -21,7 +21,7 @@
     
     return self;
 }
-- (void)getMovies {
+- (void)getMovies :(int ) sortType{
     [_movieView showLoading];
         NSArray *moviesArray=[[DBManager getInstance] getFavData] ;
     [self onSuccess:moviesArray: false];

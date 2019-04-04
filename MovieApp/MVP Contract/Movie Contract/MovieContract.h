@@ -19,7 +19,7 @@
 
 @protocol IMoviePresenter <NSObject>
 
--(void) getMovies;
+-(void) getMovies :(int) sortType;
 -(void) onSuccess : (NSArray*) movie :(Boolean) isFromNetwrok ;
 -(void) onFail : (NSString*) errorMessage;
 
@@ -27,7 +27,7 @@
 
 @protocol IMovieManager <NSObject>
 
--(void) getMovies : (id<IMoviePresenter>) moviePresenter;
+-(void) getMovies : (id<IMoviePresenter>) moviePresenter :(int) sortType;
 
 @end
 

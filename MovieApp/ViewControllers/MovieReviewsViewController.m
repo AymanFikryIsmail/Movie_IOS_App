@@ -8,6 +8,8 @@
 
 #import "MovieReviewsViewController.h"
 #import "MoviePOJO.h"
+#import "ReviewPOJO.h"
+
 @interface MovieReviewsViewController ()
 {
      MoviePOJO* movieDetails;
@@ -21,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     self.navigationItem.title=@"Movie Reviews";
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
        MovieReviewsPresenter*  moviereviewPresenter = [[MovieReviewsPresenter alloc] initWithMovieReviewView:self];
         [moviereviewPresenter getMovieReviews:self->movieDetails];
@@ -33,9 +36,6 @@
     printf(" %s name \n",[ movieDetails.poster_path UTF8String]);
     
     //;
-}
-- (IBAction)backToDetails:(id)sender {
-      [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)hideLoading {
@@ -76,10 +76,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reviewcell" forIndexPath:indexPath];
-//    UIImageView  *imageView  = [cell viewWithTag:1];
-//    UILabel *trailerLabel = [cell viewWithTag:2];
-//    TrailerPOJO* trailer=[movieTrailerlist objectAtIndex:indexPath.row];
-//    [trailerLabel setText:[trailer trailerName]];
+
+      UILabel *autherlabel = [cell viewWithTag:1];
+    UILabel *contentabel = [cell viewWithTag:2];
+    ReviewPOJO* review=[movieReviewlist objectAtIndex:indexPath.row];
+    [autherlabel setText:[review author]];
+     [contentabel setText:[review content]];
   
     
     return cell;
