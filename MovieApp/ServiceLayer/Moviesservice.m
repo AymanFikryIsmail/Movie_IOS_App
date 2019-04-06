@@ -22,7 +22,7 @@
         [_moviedetailsPresenter onFail:errorMessage ];
     }
     else if ([serviceName isEqualToString:@"MoviesReviewsService"]) {
-        [_moviedetailsPresenter onFail:errorMessage ];
+        [_movieReviewsPresenter onFail:errorMessage ];
     }
 }
 
@@ -72,6 +72,7 @@
             NSDictionary *tempDic=[jsonObj objectAtIndex:i];
             tempReview.author=[tempDic objectForKey:@"author"];
             tempReview.content=[tempDic objectForKey:@"content"];
+             tempReview.url=[tempDic objectForKey:@"url"];
             [moviesReviewsArray addObject:tempReview];
         }
         [_movieReviewsPresenter onSuccess:moviesReviewsArray];
@@ -100,10 +101,10 @@
     [NetworkManager connectGetToURL:urlStr serviceName:@"Moviesdetailsservice" serviceProtocol:self];
 }
 
-- (void)getMoviesReviews:(id<IMovieDetailsPresenter>)movieDetailsPresenter :(NSString*)movieId{
-    _moviedetailsPresenter= movieDetailsPresenter;
+- (void)getMoviesReviews:(id<IMovieReviewsPresenter>)movieDetailsPresenter :(NSString*)movieId{
+    _movieReviewsPresenter= movieDetailsPresenter;
     
-    NSString *urlStr=[NSString stringWithFormat:@"http://api.themoviedb.org/3/movie/%d/reviews?api_key=655584bcccf3ea4d6c31de42c1468bf8",[movieId intValue]];//383
+    NSString *urlStr=[NSString stringWithFormat:@"http://api.themoviedb.org/3/movie/166428/reviews?api_key=655584bcccf3ea4d6c31de42c1468bf8",[movieId intValue]];//383
     [NetworkManager connectGetToURL:urlStr serviceName:@"MoviesReviewsService" serviceProtocol:self];
 }
 

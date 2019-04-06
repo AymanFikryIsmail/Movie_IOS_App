@@ -24,12 +24,22 @@
     UIApplication *application = [UIApplication sharedApplication];
     NSURL *youtube = [NSURL URLWithString:movie.TrailerUrl];
     [application openURL:youtube options:@{} completionHandler:nil];
-
-     //  [[UIApplication sharedApplication] openURL:[NSURL URLWithString: youtubePageName] options:@{} completionHandler:nil];
 }
 - (void)getMovieDetail : (MoviePOJO*) movie{
-    Moviesservice *movieService = [Moviesservice new];
-    [movieService getMoviesDetails:self : movie.mid];
+    NSURL* url = [[NSURL alloc] initWithString:@"http://google.com/"];
+    NSData* data = [NSData dataWithContentsOfURL:url];
+    if(data !=nil)
+    {
+        Moviesservice *movieService = [Moviesservice new];
+        [movieService getMoviesDetails:self : movie.mid];
+    }
+    else
+    {
+        NSArray *moviesArray=[[DBManager getInstance] getTrailerData:movie] ;
+        [self retrieveTrailers:moviesArray ];
+        
+    }
+   
     [self onSuccess:movie];
 }
 - (void)retrieveTrailers:(NSArray *)moviesTrailer  {

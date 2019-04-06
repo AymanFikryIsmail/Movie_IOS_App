@@ -15,6 +15,7 @@
      MoviePOJO* movieDetails;
     NSMutableArray * movieReviewlist ;
 }
+@property (weak, nonatomic) IBOutlet UILabel *filmName;
 @property (weak, nonatomic) IBOutlet UITableView *reviewTableView;
 
 @end
@@ -24,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      self.navigationItem.title=@"Movie Reviews";
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+   _filmName.text=movieDetails.title; dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
        MovieReviewsPresenter*  moviereviewPresenter = [[MovieReviewsPresenter alloc] initWithMovieReviewView:self];
         [moviereviewPresenter getMovieReviews:self->movieDetails];
     });
@@ -34,7 +35,7 @@
      movieDetails=[MoviePOJO new];
     movieDetails=movieDetail;
     printf(" %s name \n",[ movieDetails.poster_path UTF8String]);
-    
+    _filmName.text=movieDetail.title;
     //;
 }
 
@@ -67,11 +68,7 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
     return 50;
-    
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -81,10 +78,21 @@
     UILabel *contentabel = [cell viewWithTag:2];
     ReviewPOJO* review=[movieReviewlist objectAtIndex:indexPath.row];
     [autherlabel setText:[review author]];
-     [contentabel setText:[review content]];
-  
+    [contentabel setText:[review url]];
+    [contentabel setNumberOfLines:0];
+    //[contentabel setLineBreakMode:NSLineBreakByWordWrapping];
     
     return cell;
 }
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    ReviewPOJO* review=[movieReviewlist objectAtIndex:indexPath.row];
+    UIApplication *application = [UIApplication sharedApplication];
+    NSURL *url = [NSURL URLWithString:review.url];
+    [application openURL:url options:@{} completionHandler:nil];
+
+    
+}
 @end

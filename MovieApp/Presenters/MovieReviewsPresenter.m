@@ -21,9 +21,20 @@
     return self;
 }
 - (void)getMovieReviews:(MoviePOJO *)movie {
-    Moviesservice *movieService = [Moviesservice new];
-    [movieService getMoviesReviews:self :movie.mid];
-    
+   
+    NSURL* url = [[NSURL alloc] initWithString:@"http://google.com/"];
+    NSData* data = [NSData dataWithContentsOfURL:url];
+    if(data !=nil)
+    {
+        Moviesservice *movieService = [Moviesservice new];
+        [movieService getMoviesReviews:self :movie.mid];
+    }
+    else
+    {
+        NSArray *moviesArray=[[DBManager getInstance] getReviewData:movie] ;
+        [self onSuccess:moviesArray ];
+        
+    }
 }
 
 

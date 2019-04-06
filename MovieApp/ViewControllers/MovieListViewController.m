@@ -16,6 +16,7 @@
     NSMutableArray  *myData;
     UIAlertView *progreesAlert;
     UIActivityIndicatorView *indicator;
+    UIAlertController *sortAlert;
      Boolean isDataFromNetwrok ;
     MoviePresenter *moviePresenter;
 }
@@ -28,10 +29,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //self.moviesCollectionView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.jpg"]];
     progreesAlert = [[UIAlertView alloc] initWithTitle:@"\n\nLoading data\nPlease Wait..." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
     
-    indicator= [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicator= [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
     [progreesAlert show];
     
@@ -40,26 +40,43 @@
     [indicator startAnimating];
     [progreesAlert addSubview:indicator];
     
-    // Do any additional setup after loading the view.
-}
-- (void)viewWillAppear:(BOOL)animated{
-    
     myData = [NSMutableArray new];
     
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         self->moviePresenter = [[MoviePresenter alloc] initWithMovieView:self];
         [self->moviePresenter getMovies:0];
     });
-     [self.moviesCollectionView reloadData];
+    [self.moviesCollectionView reloadData];
+    // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated{
+    
+  
 }
 - (IBAction)sort:(id)sender {
-    printf("aaa");
-    
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        
-        [self->moviePresenter getMovies :1];
-    });
-    [self.moviesCollectionView reloadData];
+
+     sortAlert = [UIAlertController alertControllerWithTitle:@"Sort" message:@"Srot by pobularity or rating" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *pobularityAction = [UIAlertAction actionWithTitle:@"By Pobularity" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+           [progreesAlert show];
+            [self->moviePresenter getMovies :0];
+        });
+    }];
+    UIAlertAction *rateAction = [UIAlertAction actionWithTitle:@"By Rate" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            [progreesAlert show];
+            [self->moviePresenter getMovies :1];
+        });
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+      //  [self->sortAlert dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [sortAlert addAction:pobularityAction];
+    [sortAlert addAction:rateAction];
+    [sortAlert addAction:cancelAction];
+    [self presentViewController:sortAlert animated:YES completion:nil];
+
+//    [self.moviesCollectionView reloadData];
 }
 
 /*

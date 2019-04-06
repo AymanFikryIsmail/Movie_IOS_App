@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:heart-full@3x.png">
+   </FileRef>
+   <FileRef
       location = "group:MovieApp.xcodeproj">
    </FileRef>
    <FileRef

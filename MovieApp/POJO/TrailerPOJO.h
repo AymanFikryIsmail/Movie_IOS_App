@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TrailerPOJO : NSObject
 @property NSString *trailerId;
 
+@property NSString *movieId;
+
+
 @property NSString *trailerName;
 
 @property NSString *TrailerUrl;

@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *movieFavImage;
 @property (weak, nonatomic) IBOutlet UITableView *trailerTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroungImage;
+@property (weak, nonatomic) IBOutlet UIButton *reviewBtn;
 
 @end
 
@@ -34,6 +35,9 @@
     [super viewDidLoad];
     
     self.navigationItem.title=@"Movie Details";
+    _reviewBtn.layer.cornerRadius = 10;
+    _reviewBtn.layer.shadowOpacity = 1.0f;
+    _reviewBtn.layer.masksToBounds = NO;
      starRatingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(200, 300, 150, 50)];
     starRatingView.maximumValue = 5;
     starRatingView.minimumValue = 0;
@@ -95,10 +99,10 @@
     _movieDate.text=movieDetails.release_date;
     starRatingView.value=[movieDetails.vote_average floatValue]/2;
     if([movieDetails.isFavourite isEqualToString:@"true"]){
-        _movieFavImage.image=[UIImage imageNamed:@"fav2.png"];
+        _movieFavImage.image=[UIImage imageNamed:@"heart-full.png"];
     }
     else{
-        _movieFavImage.image=[UIImage imageNamed:@"fav.png"];
+        _movieFavImage.image=[UIImage imageNamed:@"heart-empty.png"];
     }
     NSString *imgPath=@"https://image.tmdb.org/t/p/w185//";
     NSString *imgData=movieDetails.poster_path;// poster_path  for network
@@ -120,13 +124,13 @@
 }
 - (IBAction)tabFavImage:(id)sender {
     if([movieDetails.isFavourite isEqualToString:@"false"]){
-        _movieFavImage.image=[UIImage imageNamed:@"fav2.png"];
+        _movieFavImage.image=[UIImage imageNamed:@"heart-full.png"];
         movieDetails.isFavourite=@"true";
         [[DBManager getInstance] saveFavouriteData:movieDetails];
       //  [[DBManager getInstance] updateFavData:movieDetails];
     }
     else{
-        _movieFavImage.image=[UIImage imageNamed:@"fav.png"];
+        _movieFavImage.image=[UIImage imageNamed:@"heart-empty.png"];
         movieDetails.isFavourite=@"false";
         [[DBManager getInstance] saveFavouriteData:movieDetails];  
        // [[DBManager getInstance] updateFavData:movieDetails];  saveFavouriteData

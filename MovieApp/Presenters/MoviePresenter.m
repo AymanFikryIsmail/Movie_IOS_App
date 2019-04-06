@@ -70,9 +70,12 @@
 //        [def setBool:true  forKey:@"isLunch"];
 //    }
     [[DBManager getInstance]deleteAll];
-  [[DBManager getInstance] saveData:movies ] ;
+    if (movies.count!=0) {
+        [[DBManager getInstance] saveData:movies ] ;
+    }
+     [_movieView hideLoading];
     [_movieView renderMoviesWithObject:movies :isFromNetwrok];
-    [_movieView hideLoading];
+ 
     
 }
 

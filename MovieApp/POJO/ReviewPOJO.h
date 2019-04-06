@@ -12,8 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ReviewPOJO : NSObject
 @property NSString *author;
-
+@property NSString *movieId;
 @property NSString *content;
+
+@property NSString *url;
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END
