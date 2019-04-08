@@ -12,7 +12,9 @@
 #import "TrailerPOJO.h"
 #import "ReviewPOJO.h"
 @implementation Moviesservice
-
+{
+@protected int msortType;
+}
 - (void)handleFailWithErrorMessage:(NSString *)errorMessage :(NSString *)serviceName{
     if ([serviceName isEqualToString:@"Moviesservice"]) {
     [_moviePresenter onFail:errorMessage];
@@ -34,13 +36,17 @@
         for(int i=0;i<jsonObj.count;++i){
             MoviePOJO *tempmovie=[MoviePOJO new];
             NSDictionary *tempDic=[jsonObj objectAtIndex:i];
-            tempmovie.mid=[tempDic objectForKey:@"id"];
+            tempmovie.mid= [tempDic objectForKey:@"id"];
+           // tempmovie.mid=[mid stringValue];
+           
             tempmovie.title=[tempDic objectForKey:@"title"];
             tempmovie.release_date=[tempDic objectForKey:@"release_date"];
             tempmovie.overview=[tempDic objectForKey:@"overview"];
             tempmovie.poster_path=[tempDic objectForKey:@"poster_path"];
-            tempmovie.vote_average=[tempDic objectForKey:@"vote_average"];
+            tempmovie.vote_average= [tempDic objectForKey:@"vote_average"];
+           // tempmovie.vote_average = [vote_average stringValue];;
             tempmovie.isFavourite=@"false";
+            tempmovie.sortType=msortType;
             [moviesArray addObject:tempmovie];
         }
         [_moviePresenter onSuccess:moviesArray : true];
@@ -85,6 +91,7 @@
 
 - (void)getMovies:(id<IMoviePresenter>)moviePresenter  :(int) sortType{
     _moviePresenter = moviePresenter;
+    msortType=sortType;
     if(sortType == 0){
        [NetworkManager connectGetToURL:@"https://api.themoviedb.org/3/discover/movie?sort_by=popularity.%20desc&api_key=655584bcccf3ea4d6c31de42c1468bf8" serviceName:@"Moviesservice" serviceProtocol:self];
     }

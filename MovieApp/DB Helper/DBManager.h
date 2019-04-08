@@ -22,12 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(DBManager*) getInstance;
 -(BOOL) createDB;
--(BOOL) saveData : (NSArray*)movieList;
+-(BOOL) saveData : (NSArray*)movieList:(int) sortType;
 -(BOOL) saveFavouriteData :(MoviePOJO*) movie;
 -(BOOL) savetrailerData : (NSArray*)movieList : (MoviePOJO*) movie;
 -(BOOL) saveReviewData : (NSArray*)movieList : (MoviePOJO*) movie;
 -(BOOL)updateFavData :(MoviePOJO*) movie;
--(NSArray*) getAllData;
+-(NSArray*) checkISFavData :(MoviePOJO*) movie;
+-(NSArray*) getAllData:(int) sortType;
 -(NSArray*) getFavData;
 
 -(NSArray*) getTrailerData : (MoviePOJO*) movie;

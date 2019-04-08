@@ -11,7 +11,9 @@
 #import <AFNetworkReachabilityManager.h>
 //#import "Reachability.h"
 @implementation MoviePresenter
-
+{
+@protected int msortType;
+}
 -(instancetype) initWithMovieView : (id<IMovieView>) movieView{
     self = [super init];
     
@@ -28,55 +30,76 @@
     AFNetworkReachabilityManager *reachability = [AFNetworkReachabilityManager sharedManager];
     [reachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         switch (status) {
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                NSLog(@"WWN");
-                break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                NSLog(@"WiFi");
-                break;
-            case AFNetworkReachabilityStatusUnknown:
-                NSLog(@"Unknown");
-                break;
+//            case AFNetworkReachabilityStatusReachableViaWWAN:
+//                NSLog(@"WWN");
+//                break;
+//            case AFNetworkReachabilityStatusReachableViaWiFi:
+//                NSLog(@"WiFi");
+//                break;
+//            case AFNetworkReachabilityStatusUnknown:
+//                NSLog(@"Unknown");
+//                break;
             case AFNetworkReachabilityStatusNotReachable:
-                NSLog(@"Not Reachable");
+            {
+//                NSMutableArray *moviesArray=[NSMutableArray new];
+                NSArray *moviesArray=[[DBManager getInstance] getAllData : sortType] ;
+                self->msortType=sortType;
+                // Query Realm for all dogs less than 2 years old
+//                RLMResults<MoviePOJO *> *puppies = [MoviePOJO objectsWhere:@"sortType = 0"];
+//               NSUInteger a= puppies.count; // => 0 because no dogs have been added to the Realm yet
+//                for (RLMObject *object in puppies) {
+//                    [moviesArray addObject:object];
+//                }
+                [self onSuccess:moviesArray : false];
                 break;
+            }
             default:
+            {Moviesservice *movieService = [Moviesservice new];
+                [movieService getMovies:self : sortType] ;
                 break;
+            }
         }
     }];
     
-    NSURL* url = [[NSURL alloc] initWithString:@"http://google.com/"];
-    NSData* data = [NSData dataWithContentsOfURL:url];
-   // if ([[AFNetworkReachabilityManager sharedManager] isReachable])
-    if(data !=nil)
-    {
-        Moviesservice *movieService = [Moviesservice new];
-        [movieService getMovies:self : sortType] ;
-    }
-    else
-    {
-        NSArray *moviesArray=[[DBManager getInstance] getAllData] ;
-        [self onSuccess:moviesArray : false];
-    }
+//    NSURL* url = [[NSURL alloc] initWithString:@"http://google.com/"];
+//    NSData* data = [NSData dataWithContentsOfURL:url];
+    //if(data !=nil)
+//    if ([[AFNetworkReachabilityManager sharedManager] isReachable])
+//    {
+//        Moviesservice *movieService = [Moviesservice new];
+//        [movieService getMovies:self : sortType] ;
+//    }
+//    else
+//    {
+//        NSArray *moviesArray=[[DBManager getInstance] getAllData] ;
+//        [self onSuccess:moviesArray : false];
+//    }
     
 }
 
 - (void)onSuccess:(NSArray *)movies : (Boolean) isFromNetwrok {
     
-    //NSUserDefaults *def=[NSUserDefaults standardUserDefaults];
-//    BOOL isFirst= [def boolForKey:@"isLunch"];
-//    if (!isFirst) {
-//         [[DBManager getInstance] saveData:movies ] ;
-//        [def setBool:true  forKey:@"isLunch"];
-//    }
-    [[DBManager getInstance]deleteAll];
-    if (movies.count!=0) {
-        [[DBManager getInstance] saveData:movies ] ;
+    if (isFromNetwrok)
+    {
+        [[DBManager getInstance]deleteAll];
+//
+//        [[RLMRealm defaultRealm] beginWriteTransaction];
+//        [[RLMRealm defaultRealm]deleteAllObjects];
+//        [[RLMRealm defaultRealm] commitWriteTransaction];
+        if (movies.count!=0) {
+            [[DBManager getInstance] saveData:movies : msortType] ;
+            
+            // Persist your data easily
+//            RLMRealm *realm = [RLMRealm defaultRealm];
+//            for (int i=0; i<[movies count]; i++) {
+//                [realm transactionWithBlock:^{
+//                    [realm addObject:movies[i]];
+//                }];
+//            }
+        }
     }
      [_movieView hideLoading];
     [_movieView renderMoviesWithObject:movies :isFromNetwrok];
- 
-    
 }
 
 

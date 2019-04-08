@@ -60,16 +60,16 @@
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         //Background Thread
         
-         movieDetailsPresenter = [[MoviedetailsPresenter alloc] initWithMovieVDetailsiew:self];
-        [movieDetailsPresenter getMovieDetail:self->movieDetails];
+        self->movieDetailsPresenter = [[MoviedetailsPresenter alloc] initWithMovieVDetailsiew:self];
+        [self->movieDetailsPresenter getMovieDetail:self->movieDetails];
     });
+      [self renderMovieDetailsWithObject];
 }
 -(void) setMovieDetail :(MoviePOJO* )movieDetail{
    // movieDetails=[MoviePOJO new];
     movieDetails=movieDetail;
+  
     printf(" %s name \n",[ movieDetails.poster_path UTF8String]);
-    
-   ;
  }
 /*
 #pragma mark - Navigation
@@ -126,13 +126,16 @@
     if([movieDetails.isFavourite isEqualToString:@"false"]){
         _movieFavImage.image=[UIImage imageNamed:@"heart-full.png"];
         movieDetails.isFavourite=@"true";
-        [[DBManager getInstance] saveFavouriteData:movieDetails];
-      //  [[DBManager getInstance] updateFavData:movieDetails];
+        if ([[[DBManager getInstance] checkISFavData:movieDetails] count] >0) {
+        [[DBManager getInstance] updateFavData:movieDetails];
+        }else{
+             [[DBManager getInstance] saveFavouriteData:movieDetails];
+        }
     }
     else{
         _movieFavImage.image=[UIImage imageNamed:@"heart-empty.png"];
         movieDetails.isFavourite=@"false";
-        [[DBManager getInstance] saveFavouriteData:movieDetails];  
+        [[DBManager getInstance] updateFavData:movieDetails];
        // [[DBManager getInstance] updateFavData:movieDetails];  saveFavouriteData
     }
 

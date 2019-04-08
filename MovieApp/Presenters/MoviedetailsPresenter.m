@@ -8,10 +8,13 @@
 
 #import "MoviedetailsPresenter.h"
 #import "UIKit/UIKit.h"
-
+#import <AFNetworkReachabilityManager.h>
 
 @implementation MoviedetailsPresenter
 
+{
+@protected MoviePOJO* mMovie;
+}
 -(instancetype) initWithMovieVDetailsiew : (id<IMovieDetailsView>) movieDetailsView{
     self = [super init];
     if (self) {
@@ -26,9 +29,11 @@
     [application openURL:youtube options:@{} completionHandler:nil];
 }
 - (void)getMovieDetail : (MoviePOJO*) movie{
-    NSURL* url = [[NSURL alloc] initWithString:@"http://google.com/"];
-    NSData* data = [NSData dataWithContentsOfURL:url];
-    if(data !=nil)
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    //    NSURL* url = [[NSURL alloc] initWithString:@"http://google.com/"];
+    //    NSData* data = [NSData dataWithContentsOfURL:url];
+    //if(data !=nil)
+    if ([[AFNetworkReachabilityManager sharedManager] isReachable])
     {
         Moviesservice *movieService = [Moviesservice new];
         [movieService getMoviesDetails:self : movie.mid];
@@ -43,10 +48,15 @@
     [self onSuccess:movie];
 }
 - (void)retrieveTrailers:(NSArray *)moviesTrailer  {
+    NSArray *moviesArray=[[DBManager getInstance] getTrailerData:mMovie] ;
+    if (moviesArray.count ==0) {
+        [[DBManager getInstance] savetrailerData:moviesTrailer:mMovie];
+    }
     [_movieDetailsView  renderMoviesTrailerWithObject:moviesTrailer];
 }
 - (void)onSuccess:(MoviePOJO*) movie{
-[_movieDetailsView  renderMovieDetailsWithObject];
+//[_movieDetailsView  renderMovieDetailsWithObject];
+    mMovie=movie;
 [_movieDetailsView hideLoading];
 }
 

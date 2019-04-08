@@ -38,7 +38,7 @@ static sqlite3_stmt    *statement;
         //ID INTEGER PRIMARY KEY AUTOINCREMENT,
         char *errMsg;
         const char *sql_stmt =
-      "CREATE TABLE IF NOT EXISTS movies (movieId TEXT,  title TEXT,  poster_path TEXT, overview TEXT ,  vote_average TEXT  ,  release_date TEXT , isFavourite TEXT )";
+      "CREATE TABLE IF NOT EXISTS movies (movieId TEXT,  title TEXT,  poster_path TEXT, overview TEXT ,  vote_average TEXT  ,  release_date TEXT , isFavourite TEXT ,sortType integer )";
         const char *sqlfavmovies_stmt =
         "CREATE TABLE IF NOT EXISTS favouritemovies (movieId TEXT,  title TEXT,  poster_path TEXT, overview TEXT ,  vote_average TEXT  ,  release_date TEXT , isFavourite TEXT )";
         const char *sqlTraiers_stmt =
@@ -79,19 +79,19 @@ static sqlite3_stmt    *statement;
     return true;
 }
 
--(BOOL) saveData : (NSArray*)movieList{
+-(BOOL) saveData : (NSArray*)movieList :(int) sortType{
 
     const char *dbpath = [databasePath UTF8String];
 
     BOOL isSuccess=false;
+     for (int i=0; i<[movieList count]; i++) {
     if (sqlite3_open(dbpath, &movieDB) == SQLITE_OK)
     {
-        for (int i=0; i<[movieList count]; i++) {
-            MoviePOJO* movie=movieList[i];
+        MoviePOJO* movie=movieList[i];
             NSString *insertSQL = [NSString stringWithFormat:
-                                   @"INSERT INTO movies (movieId, title, poster_path,  overview, vote_average, release_date ,isFavourite ) VALUES (\"%@\", \"%@\", \"%@\" , \"%@\"  , \"%@\" , \"%@\" , \"%@\")",
+                                   @"INSERT INTO movies (movieId, title, poster_path,  overview, vote_average, release_date ,isFavourite ,sortType ) VALUES (\"%@\", \"%@\", \"%@\" , \"%@\"  , \"%@\" , \"%@\" , \"%@\" , \"%d\")",
                                    movie.mid,  movie.title, movie.poster_path ,
-                                   movie.overview , movie.vote_average,  movie.release_date, @"false"];
+                                   movie.overview , movie.vote_average,  movie.release_date, @"false" , sortType];
                                    const char *insert_stmt = [insertSQL UTF8String];
                                    sqlite3_prepare_v2(movieDB, insert_stmt,
                                                       -1, &statement, NULL);
@@ -104,9 +104,8 @@ static sqlite3_stmt    *statement;
             isSuccess= false;
         }
          sqlite3_finalize(statement);
+         sqlite3_close(movieDB);
        }
-       
-        sqlite3_close(movieDB);
     }
 
     return isSuccess;
@@ -215,7 +214,7 @@ static sqlite3_stmt    *statement;
     const char *dbpath = [databasePath UTF8String];
     if (sqlite3_open(dbpath, &movieDB) == SQLITE_OK)
     {
-        NSString *updateSQL = [NSString stringWithFormat:@"update  movies  set  isFavourite =\"%@\"  where movieId = \"%@\" ",movie.isFavourite , movie.mid];
+        NSString *updateSQL = [NSString stringWithFormat:@"update  favouritemovies  set  isFavourite =\"%@\"  where movieId = \"%@\" ",movie.isFavourite , movie.mid];
 
         const char *insert_stmt = [updateSQL UTF8String];
         sqlite3_prepare_v2(movieDB, insert_stmt, -1, &statement, NULL);
@@ -233,13 +232,13 @@ static sqlite3_stmt    *statement;
 
     return false;
 }
--(NSArray*) getAllData{
+-(NSArray*) getAllData :(int) sortType{
     const char *dbpath = [databasePath UTF8String];
     //  sqlite3_stmt    *statement;
     NSMutableArray* result=nil;
     if (sqlite3_open(dbpath, &movieDB) == SQLITE_OK)
     {
-        NSString *querySQL = [NSString stringWithFormat:@"SELECT movieId, title, poster_path,  overview, vote_average, release_date ,isFavourite FROM movies "];
+        NSString *querySQL = [NSString stringWithFormat:@"SELECT movieId, title, poster_path,  overview, vote_average, release_date ,isFavourite FROM movies where sortType =\"%d\" " ,sortType];
         const char *query_stmt = [querySQL UTF8String];
         if (sqlite3_prepare_v2(movieDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
         {
@@ -266,7 +265,43 @@ static sqlite3_stmt    *statement;
     return  result;
 }
 
--(NSArray*) getFavData { 
+-(NSArray*) checkISFavData :(MoviePOJO*) movie{
+    const char *dbpath = [databasePath UTF8String];
+    //  sqlite3_stmt    *statement;
+    NSMutableArray* result=nil;
+    if (sqlite3_open(dbpath, &movieDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat:@"SELECT movieId, title, poster_path,  overview, vote_average, release_date ,isFavourite FROM favouritemovies  where  movieId=  \"%@\" " ,movie.mid];
+        const char *query_stmt = [querySQL UTF8String];
+        if (sqlite3_prepare_v2(movieDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            result=[[NSMutableArray alloc]init ];
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                NSString *movieIdField = [[NSString alloc]initWithUTF8String:(const char *) sqlite3_column_text(statement, 0)];
+                NSString *titleField = [[NSString alloc]initWithUTF8String:(const char *) sqlite3_column_text(statement, 1)];
+                NSString *poster_pathField  = [[NSString alloc] initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
+                NSString *overviewField   = [[NSString alloc]initWithUTF8String:(const char *) sqlite3_column_text(statement, 3)];
+                NSString *vote_averageField   = [[NSString alloc]initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)];
+                NSString *release_dateField   = [[NSString alloc]initWithUTF8String:(const char *) sqlite3_column_text(statement, 5)];
+                NSString *isFavouriteField   = [[NSString alloc]initWithUTF8String:(const char *) sqlite3_column_text(statement, 6)];
+                
+                MoviePOJO *m= [[MoviePOJO alloc] initWithMovie: movieIdField : titleField : poster_pathField : overviewField :vote_averageField:release_dateField : isFavouriteField];
+                [ result addObject:m];
+                
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(movieDB);
+    }
+    
+    return  result;
+}
+
+
+
+
+-(NSArray*) getFavData {
     const char *dbpath = [databasePath UTF8String];
     //  sqlite3_stmt    *statement;
     NSMutableArray* result=nil;

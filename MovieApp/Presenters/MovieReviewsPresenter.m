@@ -9,6 +9,9 @@
 #import "MovieReviewsPresenter.h"
 
 @implementation MovieReviewsPresenter
+{
+@protected MoviePOJO* mMovie;
+}
 -(instancetype)  initWithMovieReviewView : (id<IMovieReviewsView>) movieVReviewiew{
     self = [super init];
     
@@ -21,7 +24,7 @@
     return self;
 }
 - (void)getMovieReviews:(MoviePOJO *)movie {
-   
+    mMovie=movie;
     NSURL* url = [[NSURL alloc] initWithString:@"http://google.com/"];
     NSData* data = [NSData dataWithContentsOfURL:url];
     if(data !=nil)
@@ -39,6 +42,11 @@
 
 
 - (void)onSuccess:(NSArray *)moviesReviews {
+    NSArray *moviesArray=[[DBManager getInstance] getReviewData:mMovie] ;
+    if (moviesArray.count ==0) {
+        [[DBManager getInstance] saveReviewData : moviesReviews:mMovie];
+    }
+    
     [_movieVReviewiew  renderMoviesReviewsWithObject:moviesReviews];
     [_movieVReviewiew hideLoading];
 }

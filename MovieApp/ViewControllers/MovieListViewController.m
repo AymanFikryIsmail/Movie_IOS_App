@@ -9,7 +9,7 @@
 #import "MovieListViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MoviePOJO.h"
-
+#import <AFNetworking.h>
 #import "MoviedetailsViewController.h"
 @interface MovieListViewController ()
 {
@@ -29,28 +29,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//        NSLog(@"Reachability: %@", AFStringFromNetworkReachabilityStatus(status));
+//    }];
+//    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
     progreesAlert = [[UIAlertView alloc] initWithTitle:@"\n\nLoading data\nPlease Wait..." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
     
     indicator= [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
     [progreesAlert show];
     
-    indicator.center = CGPointMake(progreesAlert.bounds.size.width / 2, progreesAlert.bounds.size.height - 50);
+    indicator.center = CGPointMake(progreesAlert.bounds.size.width / 2, progreesAlert.bounds.size.height - 100);
     
     [indicator startAnimating];
     [progreesAlert addSubview:indicator];
     
     myData = [NSMutableArray new];
     
+    
+    // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated{
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         self->moviePresenter = [[MoviePresenter alloc] initWithMovieView:self];
         [self->moviePresenter getMovies:0];
     });
     [self.moviesCollectionView reloadData];
-    // Do any additional setup after loading the view.
-}
-- (void)viewWillAppear:(BOOL)animated{
-    
   
 }
 - (IBAction)sort:(id)sender {
@@ -133,18 +139,18 @@
   
     MoviedetailsViewController *detail=[self.storyboard instantiateViewControllerWithIdentifier:@"moviedetail"];
    MoviePOJO *movieDetails2=myData[indexPath.row];
-    MoviePOJO *movieDetails;
+    //MoviePOJO *movieDetails;
 //    if (isDataFromNetwrok) {
 //        NSString *mid=[myData[indexPath.row][@"id"] stringValue];
 //              movieDetails=[[MoviePOJO alloc] initWithMovie:mid :myData[indexPath.row][@"title"]:myData[indexPath.row][@"poster_path"] :myData[indexPath.row][@"overview"] :myData[indexPath.row][@"vote_average"]:myData[indexPath.row][@"release_date"]:@"false"];
 //
 //    }else{
-         movieDetails=movieDetails2;
+        // movieDetails=movieDetails2;
        // movieDetails.isFavourite=@"false";
 //    }
 
 
-   [detail setMovieDetail:movieDetails];
+   [detail setMovieDetail:movieDetails2];
     detail.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:detail animated:YES];
    // [self presentViewController:detail animated:YES completion:nil];

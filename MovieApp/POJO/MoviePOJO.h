@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Realm/Realm.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface MoviePOJO : NSObject
+@interface MoviePOJO : RLMObject
 @property NSString *mid;
 @property NSString *title;
 @property NSString *poster_path;
@@ -18,8 +17,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *vote_average;
 @property NSString *release_date;
 @property NSString *isFavourite;
+@property NSInteger sortType;
 -(instancetype) initWithMovie: (NSString*) mid : (NSString*) title : (NSString*) poster_path :(NSString*) overview  :(NSString*) vote_average :(NSString*) release_date  :(NSString*) isFavourite ;
 
 @end
 
-NS_ASSUME_NONNULL_END
+
+#import <Realm/Realm.h>
+#import "MoviePOJO.h"
+@interface MovieArrayPOJO : RLMObject
+// ... other property declarations
+@property RLMArray<MoviePOJO *>*movieList;
+@end
+
