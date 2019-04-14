@@ -111,7 +111,10 @@
 - (void)getMoviesReviews:(id<IMovieReviewsPresenter>)movieDetailsPresenter :(NSString*)movieId{
     _movieReviewsPresenter= movieDetailsPresenter;
     
-    NSString *urlStr=[NSString stringWithFormat:@"http://api.themoviedb.org/3/movie/166428/reviews?api_key=655584bcccf3ea4d6c31de42c1468bf8",[movieId intValue]];//383
+    NSString *urlStr=[NSString stringWithFormat:@"http://api.themoviedb.org/3/movie/%d/reviews?api_key=655584bcccf3ea4d6c31de42c1468bf8",[movieId intValue]];//383
+    
+    
+    //http://api.themoviedb.org/3/movie/301/videos?api_key=655584bcccf3ea4d6c31de42c1468bf8
     [NetworkManager connectGetToURL:urlStr serviceName:@"MoviesReviewsService" serviceProtocol:self];
 }
 

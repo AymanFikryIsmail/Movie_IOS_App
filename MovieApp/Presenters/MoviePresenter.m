@@ -28,53 +28,54 @@
 - (void)getMovies :(int) sortType {
     [_movieView showLoading];
     AFNetworkReachabilityManager *reachability = [AFNetworkReachabilityManager sharedManager];
-    [reachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-//            case AFNetworkReachabilityStatusReachableViaWWAN:
-//                NSLog(@"WWN");
+//    [reachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//        switch (status) {
+////            case AFNetworkReachabilityStatusReachableViaWWAN:
+////                NSLog(@"WWN");
+////                break;
+////            case AFNetworkReachabilityStatusReachableViaWiFi:
+////                NSLog(@"WiFi");
+////                break;
+////            case AFNetworkReachabilityStatusUnknown:
+////                NSLog(@"Unknown");
+////                break;
+//            case AFNetworkReachabilityStatusNotReachable:
+//            {
+////                NSMutableArray *moviesArray=[NSMutableArray new];
+//                NSArray *moviesArray=[[DBManager getInstance] getAllData : sortType] ;
+//                self->msortType=sortType;
+//                // Query Realm for all dogs less than 2 years old
+////                RLMResults<MoviePOJO *> *puppies = [MoviePOJO objectsWhere:@"sortType = 0"];
+////               NSUInteger a= puppies.count; // => 0 because no dogs have been added to the Realm yet
+////                for (RLMObject *object in puppies) {
+////                    [moviesArray addObject:object];
+////                }
+//                [self onSuccess:moviesArray : false];
 //                break;
-//            case AFNetworkReachabilityStatusReachableViaWiFi:
-//                NSLog(@"WiFi");
+//            }
+//            default:
+//            {Moviesservice *movieService = [Moviesservice new];
+//                [movieService getMovies:self : sortType] ;
 //                break;
-//            case AFNetworkReachabilityStatusUnknown:
-//                NSLog(@"Unknown");
-//                break;
-            case AFNetworkReachabilityStatusNotReachable:
-            {
-//                NSMutableArray *moviesArray=[NSMutableArray new];
-                NSArray *moviesArray=[[DBManager getInstance] getAllData : sortType] ;
-                self->msortType=sortType;
-                // Query Realm for all dogs less than 2 years old
-//                RLMResults<MoviePOJO *> *puppies = [MoviePOJO objectsWhere:@"sortType = 0"];
-//               NSUInteger a= puppies.count; // => 0 because no dogs have been added to the Realm yet
-//                for (RLMObject *object in puppies) {
-//                    [moviesArray addObject:object];
-//                }
-                [self onSuccess:moviesArray : false];
-                break;
-            }
-            default:
-            {Moviesservice *movieService = [Moviesservice new];
-                [movieService getMovies:self : sortType] ;
-                break;
-            }
-        }
-    }];
+//            }
+//        }
+//    }];
     
-//    NSURL* url = [[NSURL alloc] initWithString:@"http://google.com/"];
-//    NSData* data = [NSData dataWithContentsOfURL:url];
-    //if(data !=nil)
+    NSURL* url = [[NSURL alloc] initWithString:@"http://google.com/"];
+    NSData* data = [NSData  dataWithContentsOfURL:url ];
+    if(data !=nil)
 //    if ([[AFNetworkReachabilityManager sharedManager] isReachable])
-//    {
-//        Moviesservice *movieService = [Moviesservice new];
-//        [movieService getMovies:self : sortType] ;
-//    }
-//    else
-//    {
-//        NSArray *moviesArray=[[DBManager getInstance] getAllData] ;
-//        [self onSuccess:moviesArray : false];
-//    }
-    
+    {
+    Moviesservice *movieService = [Moviesservice new];
+    [movieService getMovies:self : sortType] ;
+    }
+    else
+    {
+    NSArray *moviesArray=[[DBManager getInstance] getAllData : sortType] ;
+    self->msortType=sortType;
+    [self onSuccess:moviesArray : false];
+    }
+
 }
 
 - (void)onSuccess:(NSArray *)movies : (Boolean) isFromNetwrok {

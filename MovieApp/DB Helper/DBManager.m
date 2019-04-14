@@ -166,9 +166,9 @@ static sqlite3_stmt    *statement;
                 printf("Failed to open/create database %i" , i);
                 isSuccess= false;
             }
-            
+             sqlite3_finalize(statement);
         }
-        sqlite3_finalize(statement);
+       
         sqlite3_close(movieDB);
     }
     

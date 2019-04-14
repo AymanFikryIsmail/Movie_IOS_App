@@ -33,7 +33,7 @@
 //        NSLog(@"Reachability: %@", AFStringFromNetworkReachabilityStatus(status));
 //    }];
 //    
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    //[[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     progreesAlert = [[UIAlertView alloc] initWithTitle:@"\n\nLoading data\nPlease Wait..." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
     

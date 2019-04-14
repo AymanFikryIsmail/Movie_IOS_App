@@ -29,6 +29,7 @@
     [application openURL:youtube options:@{} completionHandler:nil];
 }
 - (void)getMovieDetail : (MoviePOJO*) movie{
+     mMovie=movie;
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     //    NSURL* url = [[NSURL alloc] initWithString:@"http://google.com/"];
     //    NSData* data = [NSData dataWithContentsOfURL:url];
@@ -56,7 +57,7 @@
 }
 - (void)onSuccess:(MoviePOJO*) movie{
 //[_movieDetailsView  renderMovieDetailsWithObject];
-    mMovie=movie;
+   
 [_movieDetailsView hideLoading];
 }
 

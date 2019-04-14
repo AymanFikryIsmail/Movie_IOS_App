@@ -44,7 +44,7 @@
    
     starRatingView.accurateHalfStars = YES;
     starRatingView.allowsHalfStars = YES;
-
+    starRatingView.enabled=false;
     starRatingView.emptyStarImage = [UIImage imageNamed:@"fav.png"];
     starRatingView.halfStarImage = [UIImage imageNamed:@"fav.png"]; // optional
     starRatingView.filledStarImage = [UIImage imageNamed:@"fav2.png"];
