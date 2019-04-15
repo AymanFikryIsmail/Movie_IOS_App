@@ -15,9 +15,6 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - HCSStarRatingView (1.5)
-  - Realm (3.13.1):
-    - Realm/Headers (= 3.13.1)
-  - Realm/Headers (3.13.1)
   - SDWebImage (4.4.6):
     - SDWebImage/Core (= 4.4.6)
   - SDWebImage/Core (4.4.6)
@@ -25,22 +22,19 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - HCSStarRatingView (~> 1.5)
-  - Realm
   - SDWebImage (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - HCSStarRatingView
-    - Realm
     - SDWebImage
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   HCSStarRatingView: 1d18f79654735514cd6f00e6d90e38cb6320dc31
-  Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
   SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
 
-PODFILE CHECKSUM: 1555f6c199121726eb8168e0a5f064c3adc1e900
+PODFILE CHECKSUM: dbbd05f3dc6f78bb6b2370a73bf37c29425f3848
 
 COCOAPODS: 1.6.1

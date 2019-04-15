@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Realm/Realm.h>
+//#import <Realm/Realm.h>
 
-@interface MoviePOJO : RLMObject
+@interface MoviePOJO : NSObject
 @property NSString *mid;
 @property NSString *title;
 @property NSString *poster_path;
@@ -22,11 +22,11 @@
 
 @end
 
-
-#import <Realm/Realm.h>
-#import "MoviePOJO.h"
-@interface MovieArrayPOJO : RLMObject
-// ... other property declarations
-@property RLMArray<MoviePOJO *>*movieList;
-@end
+//
+//#import <Realm/Realm.h>
+//#import "MoviePOJO.h"
+//@interface MovieArrayPOJO : RLMObject
+//// ... other property declarations
+//@property RLMArray<MoviePOJO *>*movieList;
+//@end
 
